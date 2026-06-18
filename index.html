@@ -7,16 +7,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body {
             font-family: 'Fredoka', sans-serif;
-            background: radial-gradient(circle at center, #2d1b24 0%, #121212 100%);
+            background-color: #121212;
             color: #ffe4e1;
             height: 100vh;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
+            touch-action: manipulation;
         }
 
         #fireworksCanvas {
@@ -24,53 +24,72 @@
             z-index: 1; pointer-events: none;
         }
 
+        /* Bubbles yang diperbaiki agar lebih soft */
+        .bg-bubbles {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; overflow: hidden; pointer-events: none;
+        }
+        .bg-bubbles li {
+            position: absolute; list-style: none; display: block; width: 40px; height: 40px;
+            background-color: rgba(255, 105, 180, 0.05); /* Dibuat sangat tipis */
+            bottom: -160px; animation: square 25s infinite; border-radius: 50%;
+        }
+        .bg-bubbles li:nth-child(1) { left: 10%; animation-duration: 20s; }
+        .bg-bubbles li:nth-child(2) { left: 20%; width: 80px; height: 80px; animation-duration: 25s; }
+        .bg-bubbles li:nth-child(3) { left: 80%; width: 60px; height: 60px; animation-duration: 30s; }
+        @keyframes square {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-120vh) rotate(600deg); opacity: 0; }
+        }
+
         .card {
             background: rgba(36, 21, 28, 0.85);
             backdrop-filter: blur(12px);
             border: 2px solid #ff1493;
-            box-shadow: 0 0 40px rgba(255, 20, 147, 0.3);
+            box-shadow: 0 0 30px rgba(255, 20, 147, 0.4);
             border-radius: 30px;
             width: 90%; max-width: 450px; padding: 30px;
             text-align: center; position: relative; z-index: 10;
-            min-height: 450px; display: flex; flex-direction: column; justify-content: center;
+            min-height: 480px; display: flex; flex-direction: column; justify-content: center;
         }
 
         .slide { display: none; animation: fadeIn 0.6s ease-in-out forwards; }
         .slide.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        h1 { font-family: 'Pacifico', cursive; color: #ff69b4; margin-bottom: 20px; font-size: 28px; }
+        h1 { font-family: 'Pacifico', cursive; color: #ff69b4; margin-bottom: 20px; font-size: 28px; text-shadow: 0 0 10px rgba(255,20,147,0.5); }
         p { font-size: 16px; line-height: 1.6; margin-bottom: 20px; }
 
         .btn-group { display: flex; justify-content: center; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
-        
-        /* TOMBOL DIPERBAIKI (TIDAK MEMBESAR) */
         .btn {
-            background: #ff1493; color: white; border: none;
+            background: linear-gradient(45deg, #ff1493, #ff69b4); color: white; border: none;
             padding: 12px 25px; border-radius: 30px; cursor: pointer; font-size: 16px;
             font-family: 'Fredoka', sans-serif; font-weight: 600;
-            transition: background 0.3s ease; box-shadow: 0 4px 10px rgba(255, 20, 147, 0.3);
+            transition: 0.3s; box-shadow: 0 4px 10px rgba(255, 20, 147, 0.3);
         }
         .btn:hover { background: #c71585; }
-        .btn-back { background: transparent; border: 2px solid #ff1493; color: #ff1493; }
+        .btn-back { background: transparent; border: 2px solid #ff1493; color: #ff1493; box-shadow: none; }
         .btn-back:hover { background: rgba(255, 105, 180, 0.1); }
 
-        /* AREA TOMBOL KUIS AGAR TIDAK BERANTAKAN */
-        .quiz-area { min-height: 120px; position: relative; width: 100%; display: flex; justify-content: center; align-items: center; }
+        /* Perbaikan area kuis agar tidak tumpang tindih */
+        .quiz-area { 
+            position: relative; width: 100%; min-height: 120px; 
+            display: flex; justify-content: center; align-items: center; 
+        }
 
         .photo-frame {
             background: #fff; padding: 10px 10px 25px 10px; border-radius: 5px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.5); margin: 0 auto 20px auto;
             max-width: 220px; transform: rotate(-2deg);
         }
-        .photo-frame img { width: 100%; height: 200px; object-fit: cover; }
+        .photo-frame img { width: 100%; height: 200px; object-fit: cover; border-radius: 3px; }
         .photo-caption { color: #333; font-family: 'Pacifico', cursive; margin-top: 10px; font-size: 14px; }
 
         .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 15px 0; }
         .photo-grid img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 8px; border: 2px solid #ff1493; }
 
         #music-widget {
-            position: fixed; top: 20px; right: 20px; background: rgba(0,0,0,0.5);
+            position: fixed; top: 20px; right: 20px; background: rgba(36,21,28,0.7);
             border: 1px solid #ff69b4; border-radius: 30px; padding: 5px 15px 5px 5px;
             display: flex; align-items: center; gap: 10px; z-index: 10000; cursor: pointer;
         }
@@ -79,7 +98,7 @@
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
         .game-area { width: 100%; height: 200px; background: rgba(0,0,0,0.3); border: 2px dashed #ff69b4; border-radius: 15px; position: relative; margin-bottom: 15px; }
-        .target-item { position: absolute; font-size: 40px; cursor: pointer; transition: 0.1s; }
+        .target-item { position: absolute; font-size: 40px; cursor: pointer; z-index: 5; }
         
         .message-box {
             max-height: 200px; overflow-y: auto; text-align: left; font-size: 14px;
@@ -97,13 +116,14 @@
     </div>
 
     <canvas id="fireworksCanvas"></canvas>
+    <ul class="bg-bubbles"><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
     <div class="card">
         <!-- Slide 1 -->
         <div id="slide1" class="slide active">
             <h1>Hai, Nabilla! 👋</h1>
             <p>Ada kejutan kecil nih buat kamu. Boleh dilihat nggak?</p>
-            <button class="btn" onclick="goToSlide(2)">Boleh dong! 👀</button>
+            <button class="btn" onclick="startMusicAndSlide(2)">Boleh dong! 👀</button>
         </div>
 
         <!-- Slide 2: Quiz 1 -->
@@ -112,7 +132,7 @@
             <p>Hari ini hari apa hayo?</p>
             <div class="quiz-area">
                 <button class="btn btn-back" id="dodge1" onmouseover="dodge(this)" onclick="dodge(this)" style="position:absolute;">Hari Biasa</button>
-                <button class="btn" onclick="goToSlide(3)" style="position:absolute; right: 0;">Hari Ulang Tahunku! 🎂</button>
+                <button class="btn" onclick="goToSlide(3)" style="position:absolute; right:0;">Hari Ulang Tahunku! 🎂</button>
             </div>
         </div>
 
@@ -122,7 +142,7 @@
             <p>Bedanya kamu sama Borobudur?</p>
             <div class="quiz-area">
                 <button class="btn btn-back" id="dodge2" onmouseover="dodge(this)" onclick="dodge(this)" style="position:absolute;">Sama-sama batu?</button>
-                <button class="btn" onclick="goToSlide(4)" style="position:absolute; right: 0;">Kalau kamu candu! ✨</button>
+                <button class="btn" onclick="goToSlide(4)" style="position:absolute; right:0;">Kalau kamu candu! ✨</button>
             </div>
         </div>
 
@@ -132,7 +152,7 @@
             <p>Kalau aku tiba-tiba botak?</p>
             <div class="quiz-area">
                 <button class="btn btn-back" id="dodge3" onmouseover="dodge(this)" onclick="dodge(this)" style="position:absolute;">Pura-pura gak kenal</button>
-                <button class="btn" onclick="goToSlide(5)" style="position:absolute; right: 0;">Ikut botak juga! 😂</button>
+                <button class="btn" onclick="goToSlide(5)" style="position:absolute; right:0;">Ikut botak juga! 😂</button>
             </div>
         </div>
 
@@ -196,17 +216,21 @@
             if (!initialized) { m.play(); initialized=true; document.getElementById('music-emoji').innerText='🎵'; document.getElementById('music-album-art').classList.add('playing'); }
             else { m.paused ? m.play() : m.pause(); document.getElementById('music-emoji').innerText = m.paused ? '🔇' : '🎵'; m.paused ? document.getElementById('music-album-art').classList.remove('playing') : document.getElementById('music-album-art').classList.add('playing'); }
         }
+        function startMusicAndSlide(n) { toggleMusic(); goToSlide(n); }
         function goToSlide(n) { document.querySelectorAll('.slide').forEach(s=>s.classList.remove('active')); document.getElementById('slide'+n).classList.add('active'); if(n==9) startGame(); else stopGame(); }
-        function dodge(btn) { const c = btn.parentElement; btn.style.left = Math.random()*(c.clientWidth-btn.clientWidth)+'px'; btn.style.top = Math.random()*(c.clientHeight-btn.clientHeight)+'px'; }
         
-        // Game Logic
+        function dodge(btn) { 
+            const c = btn.parentElement; 
+            btn.style.left = Math.random()*(c.clientWidth-btn.clientWidth)+'px'; 
+            btn.style.top = Math.random()*(c.clientHeight-btn.clientHeight)+'px'; 
+        }
+        
         let score = 0;
         function startGame() { score=0; document.getElementById('targetItem').style.display='block'; moveTarget(); }
         function stopGame() { clearInterval(window.gameInt); }
         function moveTarget() { const t = document.getElementById('targetItem'), a = document.getElementById('gameArea'); t.style.left = Math.random()*(a.clientWidth-50)+'px'; t.style.top = Math.random()*(a.clientHeight-50)+'px'; window.gameInt = setTimeout(moveTarget, 800); }
         function catchItem() { score++; if(score>=5) { document.getElementById('targetItem').style.display='none'; document.getElementById('gameBtnNext').style.display='block'; } else moveTarget(); }
 
-        // Fireworks
         const canvas = document.getElementById('fireworksCanvas'), ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         function fire() { ctx.fillStyle='rgba(0,0,0,0.1)'; ctx.fillRect(0,0,canvas.width,canvas.height); requestAnimationFrame(fire); }
