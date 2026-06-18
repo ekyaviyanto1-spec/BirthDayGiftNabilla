@@ -6,7 +6,7 @@
     <title>Happy Birthday Nabilla! 💖</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
     <style>
-        /* --- RESET & BASIC SETUP --- */
+        /* */
         * {
             margin: 0;
             padding: 0;
@@ -14,13 +14,14 @@
         }
         body {
             font-family: 'Fredoka', sans-serif;
-            background-color: #121212; /* Hitam elegan */
-            color: #ffe4e1; /* Pink pastel */
+            background-color: #121212;
+            color: #ffe4e1;
             height: 100vh;
-            overflow: hidden; /* Mencegah scroll */
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
+            touch-action: manipulation; /* Mencegah zoom saat tap cepat di game */
         }
 
         /* --- BACKGROUND ANIMASI NON-STOP --- */
@@ -32,7 +33,7 @@
             height: 100%;
             z-index: 0;
             overflow: hidden;
-            pointer-events: none; /* Agar tidak mengganggu klik */
+            pointer-events: none;
         }
         .bg-bubbles li {
             position: absolute;
@@ -44,13 +45,12 @@
             bottom: -160px;
             animation: square 25s infinite;
             transition-timing-function: linear;
-            border-radius: 50%; /* Bentuk bulat */
+            border-radius: 50%;
             box-shadow: 0 0 15px rgba(255, 20, 147, 0.4);
             font-size: 30px;
             text-align: center;
             line-height: 40px;
         }
-        /* Randomizer posisi, ukuran, dan kecepatan */
         .bg-bubbles li:nth-child(1) { left: 10%; animation-duration: 15s; }
         .bg-bubbles li:nth-child(2) { left: 20%; width: 80px; height: 80px; animation-duration: 22s; animation-delay: 2s; }
         .bg-bubbles li:nth-child(3) { left: 25%; animation-duration: 18s; animation-delay: 4s; }
@@ -67,9 +67,10 @@
             100% { transform: translateY(-120vh) rotate(600deg); opacity: 0; }
         }
 
+        /* */
         /* --- MAIN CONTAINER --- */
         .card {
-            background: rgba(36, 21, 28, 0.85); /* Kaca gelap dengan hint pink */
+            background: rgba(36, 21, 28, 0.85);
             backdrop-filter: blur(8px);
             border: 2px solid #ff1493;
             box-shadow: 0 0 30px rgba(255, 20, 147, 0.4), inset 0 0 15px rgba(255, 105, 180, 0.2);
@@ -80,6 +81,10 @@
             text-align: center;
             position: relative;
             z-index: 10;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         /* --- SLIDES LOGIC --- */
@@ -97,7 +102,7 @@
 
         /* --- TYPOGRAPHY & ELEMENTS --- */
         h1 {
-            font-family: 'Pacifico', cursive; /* Font sambung lucu */
+            font-family: 'Pacifico', cursive;
             color: #ff69b4;
             text-shadow: 2px 2px 5px rgba(0,0,0,0.5), 0 0 15px #ff1493;
             font-size: 32px;
@@ -110,7 +115,6 @@
             margin-bottom: 25px;
         }
         
-        /* Pola bingkai foto (Polaroid style) */
         .photo-frame {
             background: #fff;
             padding: 10px 10px 25px 10px;
@@ -118,11 +122,11 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
             margin: 0 auto 20px auto;
             max-width: 250px;
-            transform: rotate(-3deg); /* Foto agak miring */
+            transform: rotate(-3deg);
             transition: 0.3s;
         }
         .photo-frame:hover {
-            transform: rotate(2deg) scale(1.05); /* Interaksi saat disentuh */
+            transform: rotate(2deg) scale(1.05);
         }
         .photo-frame img {
             width: 100%;
@@ -138,12 +142,14 @@
             margin-bottom: 0;
         }
 
+        /* */
         /* --- BUTTONS --- */
         .btn-group {
             display: flex;
             justify-content: center;
             gap: 15px;
             margin-top: 15px;
+            flex-wrap: wrap;
         }
         .btn {
             background: linear-gradient(45deg, #ff1493, #ff69b4);
@@ -178,26 +184,51 @@
             color: #ff1493;
             box-shadow: 0 5px 15px rgba(255, 20, 147, 0.2);
         }
+        
+        /* Tombol Kabur untuk Kuis */
+        #btn-dodge {
+            position: relative;
+            z-index: 20;
+        }
+
+        /* --- STYLING MINI GAME --- */
+        .game-area {
+            width: 100%;
+            height: 220px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px dashed #ff69b4;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: inset 0 0 10px rgba(255, 20, 147, 0.2);
+        }
+        .target-item {
+            font-size: 45px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            cursor: pointer;
+            user-select: none;
+            transition: left 0.15s ease-out, top 0.15s ease-out, transform 0.1s;
+            z-index: 5;
+            padding: 10px;
+            margin: -10px;
+            -webkit-tap-highlight-color: transparent;
+            filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.8));
+        }
     </style>
 </head>
 <body>
 
-    <!-- Animasi Latar Belakang Non-Stop -->
+    <!-- -->
+    <!-- Animasi Latar Belakang -->
     <ul class="bg-bubbles">
-        <li>💖</li>
-        <li></li>
-        <li>✨</li>
-        <li></li>
-        <li>💕</li>
-        <li></li>
-        <li>🎉</li>
-        <li></li>
-        <li>🌸</li>
-        <li></li>
+        <li>💖</li><li></li><li>✨</li><li></li><li>💕</li><li></li><li>🎉</li><li></li><li>🌸</li><li></li>
     </ul>
 
     <!-- KOTAK UTAMA -->
-    <div class="card">
+    <div class="card" id="mainCard">
         
         <!-- SLIDE 1: Pembukaan -->
         <div id="slide1" class="slide active">
@@ -208,8 +239,18 @@
             </div>
         </div>
 
-        <!-- SLIDE 2: Foto 1 & Pesan -->
+        <!-- SLIDE 2: KUIS LUCU (BARU) -->
         <div id="slide2" class="slide">
+            <h1>Tunggu Dulu! 🛑</h1>
+            <p>Sebelum lanjut, aku mau tes memori kamu nih. Hari ini hari apa hayo?</p>
+            <div class="btn-group" style="height: 120px; position: relative; display: flex; justify-content: center; align-items: center; width: 100%;">
+                <button class="btn btn-back" id="btn-dodge" onmouseover="dodgeButton()" onclick="dodgeButton()">Hari Biasa</button>
+                <button class="btn" onclick="goToSlide(3)">Hari Ulang Tahunku! 🎂</button>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Foto 1 -->
+        <div id="slide3" class="slide">
             <h1>Happy Birthday! 🎂</h1>
             <div class="photo-frame">
                 <!-- GANTI LINK GAMBAR DI BAWAH INI DENGAN FOTO ASLI (contoh: foto1.jpg) -->
@@ -218,90 +259,202 @@
             </div>
             <p>Selamat ulang tahun, Nabilla! Walau kita udah punya jalan masing-masing, aku tetep mau ngucapin di hari spesialmu ini.</p>
             <div class="btn-group">
-                <button class="btn btn-back" onclick="goToSlide(1)">Kembali</button>
-                <button class="btn" onclick="goToSlide(3)">Lanjut 👉</button>
-            </div>
-        </div>
-
-        <!-- SLIDE 3: Foto 2 & Pesan -->
-        <div id="slide3" class="slide">
-            <h1>Cerita Kita 📖</h1>
-            <div class="photo-frame" style="transform: rotate(3deg);"> <!-- Rotasi diubah agar bervariasi -->
-                <!-- GANTI LINK GAMBAR DI BAWAH INI -->
-                <img src="https://placehold.co/300x300/ff1493/ffffff?text=Foto+Nabilla+2" alt="Foto 2">
-                <p class="photo-caption">Memori 2 💫</p>
-            </div>
-            <p>Makasih ya udah pernah jadi bagian cerita yang indah di hidup aku. Banyak banget memori seru yang pernah kita lewatin bareng.</p>
-            <div class="btn-group">
                 <button class="btn btn-back" onclick="goToSlide(2)">Kembali</button>
                 <button class="btn" onclick="goToSlide(4)">Lanjut 👉</button>
             </div>
         </div>
 
-        <!-- SLIDE 4: Foto 3 & Pesan -->
+        <!-- SLIDE 4: Foto 2 -->
         <div id="slide4" class="slide">
-            <h1>Doaku Buatmu 🌟</h1>
-            <div class="photo-frame" style="transform: rotate(-2deg);">
-                <!-- GANTI LINK GAMBAR DI BAWAH INI -->
-                <img src="https://placehold.co/300x300/ff69b4/121212?text=Foto+Nabilla+3" alt="Foto 3">
-                <p class="photo-caption">Memori 3 🌸</p>
+            <h1>Cerita Kita 📖</h1>
+            <div class="photo-frame" style="transform: rotate(3deg);">
+                <img src="https://placehold.co/300x300/ff1493/ffffff?text=Foto+Nabilla+2" alt="Foto 2">
+                <p class="photo-caption">Memori 2 💫</p>
             </div>
-            <p>Di umur yang baru ini, semoga kamu makin sukses, makin cantik, sehat selalu, dan selalu dikelilingi orang-orang baik yang sayang sama kamu.</p>
+            <p>Makasih ya udah pernah jadi bagian cerita yang indah di hidup aku. Banyak banget memori seru yang pernah kita lewatin bareng.</p>
             <div class="btn-group">
                 <button class="btn btn-back" onclick="goToSlide(3)">Kembali</button>
                 <button class="btn" onclick="goToSlide(5)">Lanjut 👉</button>
             </div>
         </div>
 
-        <!-- SLIDE 5: Foto 4 & Pesan -->
+        <!-- SLIDE 5: Foto 3 -->
         <div id="slide5" class="slide">
+            <h1>Doaku Buatmu 🌟</h1>
+            <div class="photo-frame" style="transform: rotate(-2deg);">
+                <img src="https://placehold.co/300x300/ff69b4/121212?text=Foto+Nabilla+3" alt="Foto 3">
+                <p class="photo-caption">Memori 3 🌸</p>
+            </div>
+            <p>Di umur yang baru ini, semoga kamu makin sukses, makin cantik, sehat selalu, dan selalu dikelilingi orang-orang baik yang sayang sama kamu.</p>
+            <div class="btn-group">
+                <button class="btn btn-back" onclick="goToSlide(4)">Kembali</button>
+                <button class="btn" onclick="goToSlide(6)">Lanjut 👉</button>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: Foto 4 -->
+        <div id="slide6" class="slide">
             <h1>Maaf & Terima Kasih 🙏</h1>
             <div class="photo-frame" style="transform: rotate(2deg);">
-                <!-- GANTI LINK GAMBAR DI BAWAH INI -->
                 <img src="https://placehold.co/300x300/ff1493/121212?text=Foto+Nabilla+4" alt="Foto 4">
                 <p class="photo-caption">Memori 4 💕</p>
             </div>
             <p>Maaf ya kalau dulu aku pernah buat salah atau bikin kamu sedih. Semoga sekarang kamu udah nemuin kebahagiaan yang kamu cari. You deserve the best!</p>
             <div class="btn-group">
-                <button class="btn btn-back" onclick="goToSlide(4)">Kembali</button>
-                <button class="btn" onclick="goToSlide(6)">Satu Lagi! 🎁</button>
+                <button class="btn btn-back" onclick="goToSlide(5)">Kembali</button>
+                <button class="btn" onclick="goToSlide(7)">Buka Kado! 🎁</button>
             </div>
         </div>
 
-        <!-- SLIDE 6: Penutup -->
-        <div id="slide6" class="slide">
+        <!-- SLIDE 7: MINI GAME -->
+        <div id="slide7" class="slide">
+            <h1>Tangkap Kadonya! 🎮</h1>
+            <p>Kadonya lari-lari nih! Coba tangkap (klik) <strong>5 kali</strong> buat buka isinya!</p>
+            <p style="margin-bottom: 10px;">Ditangkap: <span id="score" style="color: #ff69b4; font-weight: bold; font-size: 22px;">0</span> / 5</p>
+            
+            <div class="game-area" id="gameArea">
+                <div id="winMessage" style="display: none; color: #ff69b4; margin-top: 90px; font-size: 24px; font-weight: bold; text-shadow: 0 0 10px #ff1493;">Berhasil Ditangkap! 🎉</div>
+                <div class="target-item" id="targetItem" onclick="catchItem()">🎁</div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-back" onclick="goToSlide(6)">Kembali</button>
+                <button class="btn" id="gameBtnNext" style="display: none;" onclick="goToSlide(8)">Lihat Isi Kado! ✨</button>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Penutup -->
+        <div id="slide8" class="slide">
             <h1 style="font-size: 40px; margin-top: 20px;">Sekali Lagi...</h1>
             <h1 style="color: white; text-shadow: 0 0 20px #ff1493;">HAPPY BIRTHDAY<br>NABILLA! 🎉</h1>
             <p style="margin-top: 30px;">Semoga harimu menyenangkan! Sukses terus buat kedepannya ya. Cheers to your new age! 🥂✨</p>
             <div class="btn-group" style="margin-top: 40px;">
-                <button class="btn btn-back" onclick="goToSlide(5)">Kembali</button>
+                <button class="btn btn-back" onclick="goToSlide(7)">Kembali</button>
                 <button class="btn" onclick="ledakanHati()">🎉 Kasih Magic! 🎉</button>
             </div>
         </div>
 
     </div>
 
-    <!-- SCRIPT JS UNTUK NAVIGASI DAN INTERAKSI -->
+    <!-- -->
     <script>
-        // Fungsi pindah slide
+        // --- NAVIGASI SLIDE ---
         function goToSlide(slideNumber) {
-            // Sembunyikan semua slide
             const slides = document.querySelectorAll('.slide');
             slides.forEach(slide => {
                 slide.classList.remove('active');
             });
             
-            // Tampilkan slide yang dituju
             const nextSlide = document.getElementById('slide' + slideNumber);
             nextSlide.classList.add('active');
+
+            // Reset posisi tombol kuis jika kembali ke slide 2
+            if (slideNumber === 2) {
+                const btnDodge = document.getElementById('btn-dodge');
+                btnDodge.style.position = 'relative';
+                btnDodge.style.left = '0';
+                btnDodge.style.top = '0';
+            }
+
+            // Trigger game di slide 7
+            if (slideNumber === 7) {
+                startGame();
+            } else {
+                stopGame();
+            }
         }
 
-        // Fungsi efek ledakan hati tambahan saat tombol magic diklik
+        // --- LOGIKA KUIS (TOMBOL KABUR) ---
+        function dodgeButton() {
+            const btn = document.getElementById('btn-dodge');
+            const container = btn.parentElement;
+            
+            // Mengubah posisi jadi absolute agar bisa digeser-geser dalam kotak
+            btn.style.position = 'absolute';
+            
+            // Hitung batas maksimal x dan y agar tombol tidak keluar area
+            const maxX = container.clientWidth - btn.clientWidth;
+            const maxY = container.clientHeight - btn.clientHeight;
+            
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+        }
+
+        // --- LOGIKA MINI GAME (TANGKAP KADO) ---
+        let score = 0;
+        let gameInterval;
+
+        function startGame() {
+            score = 0;
+            document.getElementById('score').innerText = score;
+            document.getElementById('gameBtnNext').style.display = 'none';
+            document.getElementById('winMessage').style.display = 'none';
+            
+            const target = document.getElementById('targetItem');
+            target.style.display = 'block';
+            target.innerHTML = '🎁'; // Reset menjadi kado
+            
+            moveItem();
+            clearInterval(gameInterval);
+            gameInterval = setInterval(moveItem, 900); // Bergerak otomatis tiap 0.9 detik
+        }
+
+        function stopGame() {
+            if(gameInterval) clearInterval(gameInterval);
+        }
+
+        function moveItem() {
+            const target = document.getElementById('targetItem');
+            const gameArea = document.getElementById('gameArea');
+            
+            const maxX = gameArea.clientWidth - 50; 
+            const maxY = gameArea.clientHeight - 50;
+
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+
+            target.style.left = randomX + 'px';
+            target.style.top = randomY + 'px';
+        }
+
+        function catchItem() {
+            score++;
+            document.getElementById('score').innerText = score;
+            
+            const target = document.getElementById('targetItem');
+            
+            // Efek bergetar saat ditekan
+            target.style.transform = 'scale(1.4) rotate(10deg)';
+            setTimeout(() => target.style.transform = 'scale(1) rotate(0deg)', 150);
+
+            if (score >= 5) {
+                // MENANG
+                stopGame();
+                target.innerHTML = '✨💌✨'; // Kado terbuka!
+                setTimeout(() => {
+                    target.style.display = 'none';
+                    document.getElementById('gameBtnNext').style.display = 'block';
+                    document.getElementById('winMessage').style.display = 'block';
+                }, 800);
+            } else {
+                // Kado langsung kabur ketika disentuh
+                moveItem(); 
+                clearInterval(gameInterval); 
+                // Semakin banyak skor, bergeraknya semakin cepat!
+                gameInterval = setInterval(moveItem, 900 - (score * 120)); 
+            }
+        }
+
+        // --- EFEK LEDAKAN HATI FINAL ---
         function ledakanHati() {
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 40; i++) {
                 setTimeout(() => {
                     const heart = document.createElement('div');
-                    heart.innerHTML = '💖';
+                    const emojis = ['💖', '✨', '🌸', '💕'];
+                    heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
                     heart.style.position = 'fixed';
                     heart.style.left = Math.random() * 100 + 'vw';
                     heart.style.top = '-50px';
@@ -311,18 +464,16 @@
                     
                     document.body.appendChild(heart);
 
-                    // Mulai animasi jatuh
                     setTimeout(() => {
                         heart.style.top = '120vh';
                         heart.style.transform = `rotate(${Math.random() * 360}deg)`;
                         heart.style.opacity = '0';
                     }, 50);
 
-                    // Hapus elemen setelah selesai
                     setTimeout(() => {
                         heart.remove();
                     }, 3000);
-                }, i * 50);
+                }, i * 40);
             }
         }
     </script>
