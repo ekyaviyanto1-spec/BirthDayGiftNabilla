@@ -16,11 +16,14 @@
             font-family: 'Fredoka', sans-serif;
             background-color: #121212;
             color: #ffe4e1;
-            height: 100vh;
-            overflow: hidden;
+            /* SCROLL HP & ANTI NGEZOOM */
+            min-height: 100vh; 
+            overflow-x: hidden; 
+            overflow-y: auto; 
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; 
+            padding: 80px 15px 40px 15px; 
             touch-action: manipulation;
         }
 
@@ -30,7 +33,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 9999;
+            z-index: -1; 
             pointer-events: none;
         }
 
@@ -40,7 +43,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0;
+            z-index: -2; 
             overflow: hidden;
             pointer-events: none;
         }
@@ -50,12 +53,12 @@
             display: block;
             width: 40px;
             height: 40px;
-            background-color: rgba(255, 105, 180, 0.15);
+            background-color: rgba(255, 105, 180, 0.05); 
             bottom: -160px;
             animation: square 25s infinite;
             transition-timing-function: linear;
             border-radius: 50%;
-            box-shadow: 0 0 15px rgba(255, 20, 147, 0.4);
+            box-shadow: 0 0 15px rgba(255, 20, 147, 0.1);
             font-size: 30px;
             text-align: center;
             line-height: 40px;
@@ -63,12 +66,12 @@
         .bg-bubbles li:nth-child(1) { left: 10%; animation-duration: 15s; }
         .bg-bubbles li:nth-child(2) { left: 20%; width: 80px; height: 80px; animation-duration: 22s; animation-delay: 2s; }
         .bg-bubbles li:nth-child(3) { left: 25%; animation-duration: 18s; animation-delay: 4s; }
-        .bg-bubbles li:nth-child(4) { left: 40%; width: 60px; height: 60px; background-color: rgba(255, 20, 147, 0.25); animation-duration: 24s; }
+        .bg-bubbles li:nth-child(4) { left: 40%; width: 60px; height: 60px; background-color: rgba(255, 20, 147, 0.08); animation-duration: 24s; }
         .bg-bubbles li:nth-child(5) { left: 70%; animation-duration: 20s; }
-        .bg-bubbles li:nth-child(6) { left: 80%; width: 120px; height: 120px; background-color: rgba(255, 105, 180, 0.1); animation-duration: 30s; animation-delay: 3s; }
+        .bg-bubbles li:nth-child(6) { left: 80%; width: 120px; height: 120px; background-color: rgba(255, 105, 180, 0.03); animation-duration: 30s; animation-delay: 3s; }
         .bg-bubbles li:nth-child(7) { left: 32%; width: 160px; height: 160px; animation-duration: 35s; animation-delay: 7s; }
         .bg-bubbles li:nth-child(8) { left: 55%; width: 20px; height: 20px; animation-duration: 12s; animation-delay: 15s; }
-        .bg-bubbles li:nth-child(9) { left: 25%; width: 10px; height: 10px; background-color: rgba(255, 20, 147, 0.3); animation-duration: 16s; animation-delay: 2s; }
+        .bg-bubbles li:nth-child(9) { left: 25%; width: 10px; height: 10px; background-color: rgba(255, 20, 147, 0.06); animation-duration: 16s; animation-delay: 2s; }
         .bg-bubbles li:nth-child(10) { left: 90%; width: 160px; height: 160px; animation-duration: 28s; animation-delay: 11s; }
 
         @keyframes square {
@@ -82,7 +85,7 @@
             border: 2px solid #ff1493;
             box-shadow: 0 0 30px rgba(255, 20, 147, 0.4), inset 0 0 15px rgba(255, 105, 180, 0.2);
             border-radius: 25px;
-            width: 90%;
+            width: 100%;
             max-width: 450px;
             padding: 30px;
             text-align: center;
@@ -92,6 +95,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            margin: auto; 
         }
 
         .slide {
@@ -110,14 +114,14 @@
             font-family: 'Pacifico', cursive;
             color: #ff69b4;
             text-shadow: 2px 2px 5px rgba(0,0,0,0.5), 0 0 15px #ff1493;
-            font-size: 32px;
+            font-size: 30px;
             margin-bottom: 20px;
             letter-spacing: 2px;
         }
         p {
-            font-size: 17px;
+            font-size: 16px;
             line-height: 1.6;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         
         .photo-frame {
@@ -147,6 +151,40 @@
             margin-bottom: 0;
         }
 
+        /* GRID 6 FOTO MELAYANG SLIDE 10 */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 25px 0;
+            width: 100%;
+        }
+        .photo-grid img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid #ff1493;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3);
+            animation: floating 3s ease-in-out infinite;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .photo-grid img:nth-child(even) { animation-delay: 1.5s; }
+        .photo-grid img:nth-child(3n) { animation-delay: 0.7s; }
+
+        .photo-grid img:hover {
+            animation-play-state: paused;
+            transform: scale(1.1) rotate(2deg);
+            border-color: #fff;
+            z-index: 5;
+            position: relative;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0) rotate(-1deg); }
+            50% { transform: translateY(-8px) rotate(1deg); }
+        }
+
         .btn-group {
             display: flex;
             justify-content: center;
@@ -170,11 +208,11 @@
             letter-spacing: 1px;
         }
         .btn:hover {
-            transform: translateY(-3px) scale(1.05);
             box-shadow: 0 8px 20px rgba(255, 20, 147, 0.6);
+            background: linear-gradient(45deg, #ff69b4, #ff1493);
         }
         .btn:active {
-            transform: translateY(1px);
+            transform: translateY(2px);
         }
         .btn-back {
             background: transparent;
@@ -188,10 +226,24 @@
             box-shadow: 0 5px 15px rgba(255, 20, 147, 0.2);
         }
         
+        .quiz-container {
+            height: 140px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
         .dodge-btn {
             position: relative;
             z-index: 20;
             transition: top 0.2s, left 0.2s;
+        }
+        .correct-btn {
+            z-index: 30; 
+            position: relative;
         }
 
         #music-widget {
@@ -260,6 +312,7 @@
             filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.8));
         }
 
+        /* --- KOTAK PESAN KHUSUS (SCROLL TEXT) --- */
         .message-box {
             max-height: 220px;
             overflow-y: auto;
@@ -275,86 +328,39 @@
         }
         .message-box p {
             margin-bottom: 15px;
-            font-size: 15px;
         }
         .message-box p:last-child {
             margin-bottom: 0;
         }
-        .message-box::-webkit-scrollbar {
-            width: 8px;
-        }
-        .message-box::-webkit-scrollbar-track {
-            background: rgba(255, 105, 180, 0.1); 
-            border-radius: 10px;
-        }
-        .message-box::-webkit-scrollbar-thumb {
-            background: #ff69b4; 
-            border-radius: 10px;
-        }
-        .message-box::-webkit-scrollbar-thumb:hover {
-            background: #ff1493; 
-        }
-
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin: 15px 0;
-            width: 100%;
-        }
-        .photo-grid img {
-            width: 100%;
-            aspect-ratio: 1/1;
-            object-fit: cover;
-            border-radius: 12px;
-            border: 2px solid #ff1493;
-            box-shadow: 0 0 10px rgba(255, 20, 147, 0.3);
-            transition: all 0.3s ease;
-            /* Efek animasi goyang/melayang */
-            animation: floating 3s ease-in-out infinite;
-            cursor: pointer;
-        }
-        /* Membuat goyangan bervariasi antar foto */
-        .photo-grid img:nth-child(even) {
-            animation-duration: 3.5s;
-            animation-delay: 0.5s;
-        }
-        .photo-grid img:nth-child(3n) {
-            animation-duration: 4s;
-            animation-delay: 1s;
-        }
-        .photo-grid img:hover {
-            transform: scale(1.15) rotate(-3deg) !important;
-            box-shadow: 0 0 20px rgba(255, 20, 147, 0.8);
-            z-index: 10;
-            position: relative;
-            /* Berhenti goyang saat disentuh/hover */
-            animation-play-state: paused;
-        }
-        @keyframes floating {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-5px) rotate(3deg); }
-        }
+        .message-box::-webkit-scrollbar { width: 8px; }
+        .message-box::-webkit-scrollbar-track { background: rgba(255, 105, 180, 0.1); border-radius: 10px; }
+        .message-box::-webkit-scrollbar-thumb { background: #ff69b4; border-radius: 10px; }
+        .message-box::-webkit-scrollbar-thumb:hover { background: #ff1493; }
 
     </style>
 </head>
 <body>
 
+    <!-- Audio Element -->
     <audio id="bgMusic" loop preload="auto">
         <source src="sampai-jadi-debu.mp3" type="audio/mpeg">
     </audio>
 
+    <!-- Widget Musik Pojok Kanan Atas -->
     <div id="music-widget" onclick="toggleMusic()">
         <img id="music-album-art" class="music-photo" src="https://placehold.co/100x100/ff69b4/ffffff?text=Lagu" alt="Album Art">
         <span id="music-emoji" class="music-emoji">🔇</span>
     </div>
 
+    <!-- Canvas Kembang Api -->
     <canvas id="fireworksCanvas"></canvas>
 
+    <!-- Animasi Latar Belakang -->
     <ul class="bg-bubbles">
         <li>💖</li><li></li><li>✨</li><li></li><li>💕</li><li></li><li>🎉</li><li></li><li>🌸</li><li></li>
     </ul>
 
+    <!-- KOTAK UTAMA -->
     <div class="card" id="mainCard">
         
         <!-- SLIDE 1: Pembukaan -->
@@ -369,10 +375,10 @@
         <!-- SLIDE 2: KUIS 1 -->
         <div id="slide2" class="slide">
             <h1>Tunggu Dulu! 🛑</h1>
-            <p>Sebelum lanjut, aku mau tes memori kamu nih. Hari ini hari apa hayo?</p>
-            <div class="btn-group" style="height: 120px; position: relative; display: flex; justify-content: center; align-items: center; width: 100%;">
-                <button class="btn btn-back dodge-btn" onmouseover="dodgeButton(this)" onclick="dodgeButton(this)">Hari Biasa</button>
-                <button class="btn" onclick="goToSlide(3)">Hari Ulang Tahunku! 🎂</button>
+            <p>Tes memori dulu nih. Hari ini hari apa hayo?</p>
+            <div class="quiz-container">
+                <button class="btn btn-back dodge-btn" onmouseover="dodgeButton(this)" onclick="dodgeButton(this)">HARI BIASA</button>
+                <button class="btn correct-btn" onclick="goToSlide(3)">HARI ULANG TAHUNKU! 🎂</button>
             </div>
         </div>
 
@@ -380,9 +386,9 @@
         <div id="slide3" class="slide">
             <h1>Satu Lagi! 🤭</h1>
             <p>Tahu nggak bedanya kamu sama Borobudur?</p>
-            <div class="btn-group" style="height: 120px; position: relative; display: flex; justify-content: center; align-items: center; width: 100%;">
-                <button class="btn btn-back dodge-btn" onmouseover="dodgeButton(this)" onclick="dodgeButton(this)">Sama-sama batu?</button>
-                <button class="btn" onclick="goToSlide(4)">Kalau kamu candu! ✨</button>
+            <div class="quiz-container">
+                <button class="btn btn-back dodge-btn" onmouseover="dodgeButton(this)" onclick="dodgeButton(this)">SAMA-SAMA BATU?</button>
+                <button class="btn correct-btn" onclick="goToSlide(4)">KALAU KAMU CANDU! ✨</button>
             </div>
         </div>
 
@@ -390,9 +396,9 @@
         <div id="slide4" class="slide">
             <h1>Terakhir Janji! ✌️</h1>
             <p>Kalau aku tiba-tiba jadi botak, kamu bakal lakuin apa?</p>
-            <div class="btn-group" style="height: 120px; position: relative; display: flex; justify-content: center; align-items: center; width: 100%;">
-                <button class="btn btn-back dodge-btn" onmouseover="dodgeButton(this)" onclick="dodgeButton(this)">Pura-pura gak kenal</button>
-                <button class="btn" onclick="goToSlide(5)">Ikut botak juga dong! 😂</button>
+            <div class="quiz-container">
+                <button class="btn btn-back dodge-btn" onmouseover="dodgeButton(this)" onclick="dodgeButton(this)">PURA-PURA GAK KENAL</button>
+                <button class="btn correct-btn" onclick="goToSlide(5)">IKUT BOTAK JUGA DONG! 😂</button>
             </div>
         </div>
 
@@ -469,12 +475,12 @@
             </div>
         </div>
 
-        <!-- SLIDE 10: Penutup Utama (Dengan Grid Foto) -->
+        <!-- SLIDE 10: Penutup Utama (Grid 6 Foto) -->
         <div id="slide10" class="slide">
-            <h1 style="font-size: 28px; margin-top: 5px; margin-bottom: 5px;">Sekali Lagi...</h1>
-            <h1 style="color: white; text-shadow: 0 0 20px #ff1493; font-size: 24px; margin-bottom: 5px;">HAPPY BIRTHDAY NABILLA! 🎉</h1>
+            <h1 style="color: #ff69b4; font-size: 28px; margin-bottom: 5px;">Sekali Lagi...</h1>
+            <h1 style="color: white; font-size: 24px; margin-bottom: 15px; text-shadow: 0 0 15px #ff1493;">HAPPY BIRTHDAY NABILLA! 🎉</h1>
             
-            <!-- Grid 6 Foto yang Bergoyang -->
+            <!-- Grid 6 Foto Melayang -->
             <div class="photo-grid">
                 <img src="foto5.jpg" alt="Foto 5">
                 <img src="foto6.jpg" alt="Foto 6">
@@ -484,9 +490,9 @@
                 <img src="foto10.jpg" alt="Foto 10">
             </div>
 
-            <p style="font-size: 14px; margin-bottom: 15px;">Semoga harimu menyenangkan! Sukses terus buat kedepannya ya. Cheers to your new age! 🥂✨</p>
+            <p style="font-size: 15px; margin-bottom: 20px;">Semoga harimu menyenangkan! Sukses terus buat kedepannya ya. Cheers to your new age! 🥂✨</p>
             
-            <div class="btn-group" style="margin-top: 10px;">
+            <div class="btn-group">
                 <button class="btn btn-back" onclick="goToSlide(9)">Kembali</button>
                 <button class="btn" onclick="goToSlide(11)">Ada Satu Lagi...</button>
             </div>
@@ -530,12 +536,12 @@
 
         function playAudioFirstTime() {
             if(!audioInitialized) {
-                bgMusic.volume = 0.6; // Atur volume
+                bgMusic.volume = 0.6;
                 bgMusic.play().then(() => {
                     audioInitialized = true;
                     isMuted = false;
                     musicEmoji.innerText = '🎵';
-                    musicAlbumArt.classList.add('playing'); // Putar foto album
+                    musicAlbumArt.classList.add('playing');
                 }).catch(err => {
                     console.log("Autoplay ditolak oleh browser", err);
                 });
@@ -562,7 +568,7 @@
 
         // --- NAVIGASI SLIDE ---
         function goToSlide(slideNumber) {
-            // Mainkan musik saat klik tombol pertama ("Boleh dong!") ke slide 2
+            // Mainkan musik saat klik tombol pertama
             if (slideNumber === 2 && !audioInitialized) {
                 playAudioFirstTime();
             }
@@ -575,7 +581,7 @@
             const nextSlide = document.getElementById('slide' + slideNumber);
             nextSlide.classList.add('active');
 
-            // Reset posisi semua tombol kuis jika pindah slide
+            // Reset posisi semua tombol kuis
             const dodgeBtns = document.querySelectorAll('.dodge-btn');
             dodgeBtns.forEach(btn => {
                 btn.style.position = 'relative';
@@ -589,12 +595,14 @@
             } else {
                 stopGame();
             }
+            
+            // Scroll otomatis ke atas (kembali ke atas layar) setiap ganti slide
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // --- LOGIKA KUIS (TOMBOL KABUR) ---
         function dodgeButton(btn) {
             const container = btn.parentElement;
-            
             btn.style.position = 'absolute';
             
             const maxX = container.clientWidth - btn.clientWidth;
