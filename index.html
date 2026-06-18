@@ -7,8 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
     
     <style>
-        /* */
-    <style>
         * {
             margin: 0;
             padding: 0;
@@ -196,30 +194,44 @@
             transition: top 0.2s, left 0.2s;
         }
 
-        /* Tombol Music Toggle di pojok kanan atas */
-        #musicToggle {
+        #music-widget {
             position: fixed;
             top: 20px;
             right: 20px;
             background: rgba(36, 21, 28, 0.7);
             border: 1px solid #ff69b4;
-            color: #ff69b4;
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            font-size: 20px;
-            cursor: pointer;
-            z-index: 10000;
-            display: none;
+            border-radius: 30px;
+            padding: 5px 15px 5px 5px;
+            display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 10px;
+            z-index: 10000;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 20, 147, 0.4);
             backdrop-filter: blur(5px);
-            transition: all 0.3s;
-            box-shadow: 0 0 10px rgba(255, 20, 147, 0.4);
+            transition: transform 0.3s, background 0.3s;
         }
-        #musicToggle:hover {
-            background: rgba(255, 105, 180, 0.3);
-            transform: scale(1.1);
+        #music-widget:hover {
+            transform: scale(1.05);
+            background: rgba(255, 105, 180, 0.2);
+        }
+        .music-photo {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #ff1493;
+            animation: spinRecord 4s linear infinite;
+            animation-play-state: paused;
+        }
+        .music-photo.playing {
+            animation-play-state: running;
+        }
+        @keyframes spinRecord {
+            100% { transform: rotate(360deg); }
+        }
+        .music-emoji {
+            font-size: 20px;
         }
 
         .game-area {
@@ -252,10 +264,16 @@
 <body>
 
     <!-- Audio Element untuk Lagu -->
-    <audio id="bgMusic" src="sampai-jadi-debu.mp3" loop preload="auto"></audio>
+    <audio id="bgMusic" loop preload="auto">
+        <source src="sampai-jadi-debu.mp3" type="audio/mpeg">
+    </audio>
 
-    <!-- Tombol Audio -->
-    <button id="musicToggle" onclick="toggleMusic()">🔊</button>
+    <!-- Widget Musik Pojok Kanan Atas -->
+    <div id="music-widget" onclick="toggleMusic()">
+        <!-- Ganti src di bawah dengan link foto Banda Neira atau foto kalian -->
+        <img id="music-album-art" class="music-photo" src="https://placehold.co/100x100/ff69b4/ffffff?text=Lagu" alt="Album Art">
+        <span id="music-emoji" class="music-emoji">🔇</span>
+    </div>
 
     <!-- Canvas Kembang Api -->
     <canvas id="fireworksCanvas"></canvas>
@@ -265,6 +283,7 @@
         <li>💖</li><li></li><li>✨</li><li></li><li>💕</li><li></li><li>🎉</li><li></li><li>🌸</li><li></li>
     </ul>
 
+    <!-- KOTAK UTAMA -->
     <div class="card" id="mainCard">
         
         <!-- SLIDE 1: Pembukaan -->
@@ -276,50 +295,168 @@
             </div>
         </div>
 
-    <!-- -->
+        <!-- SLIDE 2: KUIS 1 -->
+        <div id="slide2" class="slide">
+            <h1>Tunggu Dulu! 🛑</h1>
+            <p>Sebelum lanjut, aku mau tes memori kamu nih. Hari ini hari apa hayo?</p>
+            <div class="btn-group" style="height: 120px; position: relative; display: flex; justify-content: center; align-items: center; width: 100%;">
+                <button class="btn btn-back dodge-btn" onmouseover="dodgeButton(this)" onclick="dodgeButton(this)">Hari Biasa</button>
+                <button class="btn" onclick="goToSlide(3)">Hari Ulang Tahunku! 🎂</button>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: KUIS 2 -->
+        <div id="slide3" class="slide">
+            <h1>Satu Lagi! 🤭</h1>
+            <p>Tahu nggak bedanya kamu sama Borobudur?</p>
+            <div class="btn-group" style="height: 120px; position: relative; display: flex; justify-content: center; align-items: center; width: 100%;">
+                <button class="btn btn-back dodge-btn" onmouseover="dodgeButton(this)" onclick="dodgeButton(this)">Sama-sama batu?</button>
+                <button class="btn" onclick="goToSlide(4)">Kalau kamu candu! ✨</button>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: KUIS 3 -->
+        <div id="slide4" class="slide">
+            <h1>Terakhir Janji! ✌️</h1>
+            <p>Kalau aku tiba-tiba jadi botak, kamu bakal lakuin apa?</p>
+            <div class="btn-group" style="height: 120px; position: relative; display: flex; justify-content: center; align-items: center; width: 100%;">
+                <button class="btn btn-back dodge-btn" onmouseover="dodgeButton(this)" onclick="dodgeButton(this)">Pura-pura gak kenal</button>
+                <button class="btn" onclick="goToSlide(5)">Ikut botak juga dong! 😂</button>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Foto 1 -->
+        <div id="slide5" class="slide">
+            <h1>Happy Birthday! 🎂</h1>
+            <div class="photo-frame">
+                <!-- GANTI LINK GAMBAR DI BAWAH INI DENGAN FOTO ASLI (contoh: foto1.jpg) -->
+                <img src="https://placehold.co/300x300/ff69b4/ffffff?text=Foto+Nabilla+1" alt="Foto 1">
+                <p class="photo-caption">Memori 1 ✨</p>
+            </div>
+            <p>Selamat ulang tahun, Nabilla! Walau kita udah punya jalan masing-masing, aku tetep mau ngucapin di hari spesialmu ini.</p>
+            <div class="btn-group">
+                <button class="btn btn-back" onclick="goToSlide(4)">Kembali</button>
+                <button class="btn" onclick="goToSlide(6)">Lanjut 👉</button>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: Foto 2 -->
+        <div id="slide6" class="slide">
+            <h1>Cerita Kita 📖</h1>
+            <div class="photo-frame" style="transform: rotate(3deg);">
+                <img src="https://placehold.co/300x300/ff1493/ffffff?text=Foto+Nabilla+2" alt="Foto 2">
+                <p class="photo-caption">Memori 2 💫</p>
+            </div>
+            <p>Makasih ya udah pernah jadi bagian cerita yang indah di hidup aku. Banyak banget memori seru yang pernah kita lewatin bareng.</p>
+            <div class="btn-group">
+                <button class="btn btn-back" onclick="goToSlide(5)">Kembali</button>
+                <button class="btn" onclick="goToSlide(7)">Lanjut 👉</button>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Foto 3 -->
+        <div id="slide7" class="slide">
+            <h1>Doaku Buatmu 🌟</h1>
+            <div class="photo-frame" style="transform: rotate(-2deg);">
+                <img src="https://placehold.co/300x300/ff69b4/121212?text=Foto+Nabilla+3" alt="Foto 3">
+                <p class="photo-caption">Memori 3 🌸</p>
+            </div>
+            <p>Di umur yang baru ini, semoga kamu makin sukses, makin cantik, sehat selalu, dan selalu dikelilingi orang-orang baik yang sayang sama kamu.</p>
+            <div class="btn-group">
+                <button class="btn btn-back" onclick="goToSlide(6)">Kembali</button>
+                <button class="btn" onclick="goToSlide(8)">Lanjut 👉</button>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Foto 4 -->
+        <div id="slide8" class="slide">
+            <h1>Maaf & Terima Kasih 🙏</h1>
+            <div class="photo-frame" style="transform: rotate(2deg);">
+                <img src="https://placehold.co/300x300/ff1493/121212?text=Foto+Nabilla+4" alt="Foto 4">
+                <p class="photo-caption">Memori 4 💕</p>
+            </div>
+            <p>Maaf ya kalau dulu aku pernah buat salah atau bikin kamu sedih. Semoga sekarang kamu udah nemuin kebahagiaan yang kamu cari. You deserve the best!</p>
+            <div class="btn-group">
+                <button class="btn btn-back" onclick="goToSlide(7)">Kembali</button>
+                <button class="btn" onclick="goToSlide(9)">Buka Kado! 🎁</button>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: MINI GAME -->
+        <div id="slide9" class="slide">
+            <h1>Tangkap Kadonya! 🎮</h1>
+            <p>Kadonya lari-lari nih! Coba tangkap (klik) <strong>5 kali</strong> buat buka isinya!</p>
+            <p style="margin-bottom: 10px;">Ditangkap: <span id="score" style="color: #ff69b4; font-weight: bold; font-size: 22px;">0</span> / 5</p>
+            
+            <div class="game-area" id="gameArea">
+                <div id="winMessage" style="display: none; color: #ff69b4; margin-top: 90px; font-size: 24px; font-weight: bold; text-shadow: 0 0 10px #ff1493;">Berhasil Ditangkap! 🎉</div>
+                <div class="target-item" id="targetItem" onclick="catchItem()">🎁</div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-back" onclick="goToSlide(8)">Kembali</button>
+                <button class="btn" id="gameBtnNext" style="display: none;" onclick="goToSlide(10)">Lihat Isi Kado! ✨</button>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Penutup -->
+        <div id="slide10" class="slide">
+            <h1 style="font-size: 40px; margin-top: 20px;">Sekali Lagi...</h1>
+            <h1 style="color: white; text-shadow: 0 0 20px #ff1493;">HAPPY BIRTHDAY<br>NABILLA! 🎉</h1>
+            <p style="margin-top: 30px;">Semoga harimu menyenangkan! Sukses terus buat kedepannya ya. Cheers to your new age! 🥂✨</p>
+            <div class="btn-group" style="margin-top: 40px;">
+                <button class="btn btn-back" onclick="goToSlide(9)">Kembali</button>
+                <button class="btn" onclick="ledakanHati()">🎉 Kasih Magic! 🎉</button>
+            </div>
+        </div>
+
+    </div>
+
     <script>
         // --- LOGIKA MUSIK BANDA NEIRA ---
         let audioInitialized = false;
-        let isMuted = false;
+        let isMuted = true;
         const bgMusic = document.getElementById('bgMusic');
+        const musicEmoji = document.getElementById('music-emoji');
+        const musicAlbumArt = document.getElementById('music-album-art');
 
-        async function initAudio() {
-            if(audioInitialized) return;
-            
-            try {
-                // Memutar musik bawaan (MP3)
-                bgMusic.volume = 0.6; // Atur volume (0.0 sampai 1.0)
-                await bgMusic.play();
-                audioInitialized = true;
-                
-                // Munculkan tombol mute di pojok
-                document.getElementById('musicToggle').style.display = 'flex';
-            } catch (err) {
-                console.log("Autoplay dicegah oleh browser. Pengguna harus menekan tombol musik.", err);
+        function playAudioFirstTime() {
+            if(!audioInitialized) {
+                bgMusic.volume = 0.6; // Atur volume
+                bgMusic.play().then(() => {
+                    audioInitialized = true;
+                    isMuted = false;
+                    musicEmoji.innerText = '🎵';
+                    musicAlbumArt.classList.add('playing'); // Putar foto album
+                }).catch(err => {
+                    console.log("Autoplay ditolak oleh browser", err);
+                });
             }
         }
 
-        // Fungsi untuk menghidupkan/mematikan suara
         function toggleMusic() {
             if(!audioInitialized) {
-                initAudio();
+                playAudioFirstTime();
                 return;
             }
+            
             isMuted = !isMuted;
             if(isMuted) {
                 bgMusic.pause();
-                document.getElementById('musicToggle').innerText = '🔇';
+                musicEmoji.innerText = '🔇';
+                musicAlbumArt.classList.remove('playing'); // Hentikan foto album
             } else {
                 bgMusic.play();
-                document.getElementById('musicToggle').innerText = '🔊';
+                musicEmoji.innerText = '🎵';
+                musicAlbumArt.classList.add('playing'); // Putar foto album
             }
         }
 
         // --- NAVIGASI SLIDE ---
         function goToSlide(slideNumber) {
-            // Mainkan musik saat pengguna menekan tombol pertama ("Boleh dong!")
+            // Mainkan musik saat klik tombol pertama ("Boleh dong!") ke slide 2
             if (slideNumber === 2 && !audioInitialized) {
-                initAudio();
+                playAudioFirstTime();
             }
 
             const slides = document.querySelectorAll('.slide');
