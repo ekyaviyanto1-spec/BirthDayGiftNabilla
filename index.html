@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Nabilla! 💖</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
+    
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: 'Fredoka', sans-serif;
             background-color: #121212;
@@ -20,23 +25,52 @@
         }
 
         #fireworksCanvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1; pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            pointer-events: none;
         }
 
-        /* Bubbles yang diperbaiki agar lebih soft */
         .bg-bubbles {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0; overflow: hidden; pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
         }
         .bg-bubbles li {
-            position: absolute; list-style: none; display: block; width: 40px; height: 40px;
-            background-color: rgba(255, 105, 180, 0.05); /* Dibuat sangat tipis */
-            bottom: -160px; animation: square 25s infinite; border-radius: 50%;
+            position: absolute;
+            list-style: none;
+            display: block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 105, 180, 0.15);
+            bottom: -160px;
+            animation: square 25s infinite;
+            transition-timing-function: linear;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 20, 147, 0.4);
+            font-size: 30px;
+            text-align: center;
+            line-height: 40px;
         }
-        .bg-bubbles li:nth-child(1) { left: 10%; animation-duration: 20s; }
-        .bg-bubbles li:nth-child(2) { left: 20%; width: 80px; height: 80px; animation-duration: 25s; }
-        .bg-bubbles li:nth-child(3) { left: 80%; width: 60px; height: 60px; animation-duration: 30s; }
+        .bg-bubbles li:nth-child(1) { left: 10%; animation-duration: 15s; }
+        .bg-bubbles li:nth-child(2) { left: 20%; width: 80px; height: 80px; animation-duration: 22s; animation-delay: 2s; }
+        .bg-bubbles li:nth-child(3) { left: 25%; animation-duration: 18s; animation-delay: 4s; }
+        .bg-bubbles li:nth-child(4) { left: 40%; width: 60px; height: 60px; background-color: rgba(255, 20, 147, 0.25); animation-duration: 24s; }
+        .bg-bubbles li:nth-child(5) { left: 70%; animation-duration: 20s; }
+        .bg-bubbles li:nth-child(6) { left: 80%; width: 120px; height: 120px; background-color: rgba(255, 105, 180, 0.1); animation-duration: 30s; animation-delay: 3s; }
+        .bg-bubbles li:nth-child(7) { left: 32%; width: 160px; height: 160px; animation-duration: 35s; animation-delay: 7s; }
+        .bg-bubbles li:nth-child(8) { left: 55%; width: 20px; height: 20px; animation-duration: 12s; animation-delay: 15s; }
+        .bg-bubbles li:nth-child(9) { left: 25%; width: 10px; height: 10px; background-color: rgba(255, 20, 147, 0.3); animation-duration: 16s; animation-delay: 2s; }
+        .bg-bubbles li:nth-child(10) { left: 90%; width: 160px; height: 160px; animation-duration: 28s; animation-delay: 11s; }
+
         @keyframes square {
             0% { transform: translateY(0) rotate(0deg); opacity: 1; }
             100% { transform: translateY(-120vh) rotate(600deg); opacity: 0; }
@@ -44,199 +78,672 @@
 
         .card {
             background: rgba(36, 21, 28, 0.85);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(8px);
             border: 2px solid #ff1493;
-            box-shadow: 0 0 30px rgba(255, 20, 147, 0.4);
-            border-radius: 30px;
-            width: 90%; max-width: 450px; padding: 30px;
-            text-align: center; position: relative; z-index: 10;
-            min-height: 480px; display: flex; flex-direction: column; justify-content: center;
+            box-shadow: 0 0 30px rgba(255, 20, 147, 0.4), inset 0 0 15px rgba(255, 105, 180, 0.2);
+            border-radius: 25px;
+            width: 90%;
+            max-width: 450px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .slide { display: none; animation: fadeIn 0.6s ease-in-out forwards; }
-        .slide.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        h1 { font-family: 'Pacifico', cursive; color: #ff69b4; margin-bottom: 20px; font-size: 28px; text-shadow: 0 0 10px rgba(255,20,147,0.5); }
-        p { font-size: 16px; line-height: 1.6; margin-bottom: 20px; }
-
-        .btn-group { display: flex; justify-content: center; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
-        .btn {
-            background: linear-gradient(45deg, #ff1493, #ff69b4); color: white; border: none;
-            padding: 12px 25px; border-radius: 30px; cursor: pointer; font-size: 16px;
-            font-family: 'Fredoka', sans-serif; font-weight: 600;
-            transition: 0.3s; box-shadow: 0 4px 10px rgba(255, 20, 147, 0.3);
+        .slide {
+            display: none;
+            animation: fadeIn 0.6s ease-in-out forwards;
         }
-        .btn:hover { background: #c71585; }
-        .btn-back { background: transparent; border: 2px solid #ff1493; color: #ff1493; box-shadow: none; }
-        .btn-back:hover { background: rgba(255, 105, 180, 0.1); }
-
-        /* Perbaikan area kuis agar tidak tumpang tindih */
-        .quiz-area { 
-            position: relative; width: 100%; min-height: 120px; 
-            display: flex; justify-content: center; align-items: center; 
+        .slide.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
+        h1 {
+            font-family: 'Pacifico', cursive;
+            color: #ff69b4;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5), 0 0 15px #ff1493;
+            font-size: 32px;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+        p {
+            font-size: 17px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
         .photo-frame {
-            background: #fff; padding: 10px 10px 25px 10px; border-radius: 5px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5); margin: 0 auto 20px auto;
-            max-width: 220px; transform: rotate(-2deg);
+            background: #fff;
+            padding: 10px 10px 25px 10px;
+            border-radius: 5px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            margin: 0 auto 20px auto;
+            max-width: 250px;
+            transform: rotate(-3deg);
+            transition: 0.3s;
         }
-        .photo-frame img { width: 100%; height: 200px; object-fit: cover; border-radius: 3px; }
-        .photo-caption { color: #333; font-family: 'Pacifico', cursive; margin-top: 10px; font-size: 14px; }
+        .photo-frame:hover {
+            transform: rotate(2deg) scale(1.05);
+        }
+        .photo-frame img {
+            width: 100%;
+            border-radius: 3px;
+            height: 230px;
+            object-fit: cover;
+        }
+        .photo-caption {
+            color: #333;
+            font-size: 14px;
+            font-family: 'Pacifico', cursive;
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
 
-        .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 15px 0; }
-        .photo-grid img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 8px; border: 2px solid #ff1493; }
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.6);
+        }
+        .btn:active {
+            transform: translateY(1px);
+        }
+        .btn-back {
+            background: transparent;
+            border: 2px solid #ff69b4;
+            color: #ff69b4;
+            box-shadow: none;
+        }
+        .btn-back:hover {
+            background: rgba(255, 105, 180, 0.1);
+            color: #ff1493;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.2);
+        }
+        
+        .dodge-btn {
+            position: relative;
+            z-index: 20;
+            transition: top 0.2s, left 0.2s;
+        }
 
         #music-widget {
-            position: fixed; top: 20px; right: 20px; background: rgba(36,21,28,0.7);
-            border: 1px solid #ff69b4; border-radius: 30px; padding: 5px 15px 5px 5px;
-            display: flex; align-items: center; gap: 10px; z-index: 10000; cursor: pointer;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(36, 21, 28, 0.7);
+            border: 1px solid #ff69b4;
+            border-radius: 30px;
+            padding: 5px 15px 5px 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 10000;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 20, 147, 0.4);
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s, background 0.3s;
         }
-        .music-photo { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; animation: spin 4s linear infinite; animation-play-state: paused; }
-        .music-photo.playing { animation-play-state: running; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+        #music-widget:hover {
+            transform: scale(1.05);
+            background: rgba(255, 105, 180, 0.2);
+        }
+        .music-photo {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #ff1493;
+            animation: spinRecord 4s linear infinite;
+            animation-play-state: paused;
+        }
+        .music-photo.playing {
+            animation-play-state: running;
+        }
+        @keyframes spinRecord {
+            100% { transform: rotate(360deg); }
+        }
+        .music-emoji {
+            font-size: 20px;
+        }
 
-        .game-area { width: 100%; height: 200px; background: rgba(0,0,0,0.3); border: 2px dashed #ff69b4; border-radius: 15px; position: relative; margin-bottom: 15px; }
-        .target-item { position: absolute; font-size: 40px; cursor: pointer; z-index: 5; }
-        
-        .message-box {
-            max-height: 200px; overflow-y: auto; text-align: left; font-size: 14px;
-            background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; color: #fff0f5;
+        .game-area {
+            width: 100%;
+            height: 220px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px dashed #ff69b4;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: inset 0 0 10px rgba(255, 20, 147, 0.2);
         }
+        .target-item {
+            font-size: 45px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            cursor: pointer;
+            user-select: none;
+            transition: left 0.15s ease-out, top 0.15s ease-out, transform 0.1s;
+            z-index: 5;
+            padding: 10px;
+            margin: -10px;
+            -webkit-tap-highlight-color: transparent;
+            filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.8));
+        }
+
+        /* --- KOTAK PESAN KHUSUS --- */
+        .message-box {
+            max-height: 220px;
+            overflow-y: auto;
+            text-align: left;
+            font-size: 15px;
+            line-height: 1.6;
+            background: rgba(0,0,0,0.4);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,105,180,0.5);
+            margin-bottom: 15px;
+            color: #fff0f5;
+        }
+        .message-box p {
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+        .message-box p:last-child {
+            margin-bottom: 0;
+        }
+        /* Custom Scrollbar untuk Kotak Pesan */
+        .message-box::-webkit-scrollbar {
+            width: 8px;
+        }
+        .message-box::-webkit-scrollbar-track {
+            background: rgba(255, 105, 180, 0.1); 
+            border-radius: 10px;
+        }
+        .message-box::-webkit-scrollbar-thumb {
+            background: #ff69b4; 
+            border-radius: 10px;
+        }
+        .message-box::-webkit-scrollbar-thumb:hover {
+            background: #ff1493; 
+        }
+
     </style>
 </head>
 <body>
 
-    <audio id="bgMusic" loop preload="auto"><source src="sampai-jadi-debu.mp3" type="audio/mpeg"></audio>
+    <!-- Audio Element untuk Lagu -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="sampai-jadi-debu.mp3" type="audio/mpeg">
+    </audio>
 
+    <!-- Widget Musik Pojok Kanan Atas -->
     <div id="music-widget" onclick="toggleMusic()">
+        <!-- Ganti src di bawah dengan link foto Banda Neira atau foto kalian -->
         <img id="music-album-art" class="music-photo" src="https://placehold.co/100x100/ff69b4/ffffff?text=Lagu" alt="Album Art">
-        <span id="music-emoji">🔇</span>
+        <span id="music-emoji" class="music-emoji">🔇</span>
     </div>
 
+    <!-- Canvas Kembang Api -->
     <canvas id="fireworksCanvas"></canvas>
-    <ul class="bg-bubbles"><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-    <div class="card">
-        <!-- Slide 1 -->
+    <!-- Animasi Latar Belakang -->
+    <ul class="bg-bubbles">
+        <li>💖</li><li></li><li>✨</li><li></li><li>💕</li><li></li><li>🎉</li><li></li><li>🌸</li><li></li>
+    </ul>
+
+    <!-- KOTAK UTAMA -->
+    <div class="card" id="mainCard">
+        
+        <!-- SLIDE 1: Pembukaan -->
         <div id="slide1" class="slide active">
             <h1>Hai, Nabilla! 👋</h1>
-            <p>Ada kejutan kecil nih buat kamu. Boleh dilihat nggak?</p>
-            <button class="btn" onclick="startMusicAndSlide(2)">Boleh dong! 👀</button>
+            <p>Hari ini hari spesial kamu kan? Aku ada sedikit kejutan kecil nih buat kamu. Boleh dilihat nggak?</p>
+            <div class="btn-group">
+                <button class="btn" onclick="goToSlide(2)">Boleh dong! 👀</button>
+            </div>
         </div>
 
-        <!-- Slide 2: Quiz 1 -->
+        <!-- SLIDE 2: KUIS 1 -->
         <div id="slide2" class="slide">
             <h1>Tunggu Dulu! 🛑</h1>
-            <p>Hari ini hari apa hayo?</p>
-            <div class="quiz-area">
-                <button class="btn btn-back" id="dodge1" onmouseover="dodge(this)" onclick="dodge(this)" style="position:absolute;">Hari Biasa</button>
-                <button class="btn" onclick="goToSlide(3)" style="position:absolute; right:0;">Hari Ulang Tahunku! 🎂</button>
+            <p>Sebelum lanjut, aku mau tes memori kamu nih. Hari ini hari apa hayo?</p>
+            <div class="btn-group" style="height: 120px; position: relative; display: flex; justify-content: center; align-items: center; width: 100%;">
+                <button class="btn btn-back dodge-btn" onmouseover="dodgeButton(this)" onclick="dodgeButton(this)">Hari Biasa</button>
+                <button class="btn" onclick="goToSlide(3)">Hari Ulang Tahunku! 🎂</button>
             </div>
         </div>
 
-        <!-- Slide 3: Quiz 2 -->
+        <!-- SLIDE 3: KUIS 2 -->
         <div id="slide3" class="slide">
             <h1>Satu Lagi! 🤭</h1>
-            <p>Bedanya kamu sama Borobudur?</p>
-            <div class="quiz-area">
-                <button class="btn btn-back" id="dodge2" onmouseover="dodge(this)" onclick="dodge(this)" style="position:absolute;">Sama-sama batu?</button>
-                <button class="btn" onclick="goToSlide(4)" style="position:absolute; right:0;">Kalau kamu candu! ✨</button>
+            <p>Tahu nggak bedanya kamu sama Borobudur?</p>
+            <div class="btn-group" style="height: 120px; position: relative; display: flex; justify-content: center; align-items: center; width: 100%;">
+                <button class="btn btn-back dodge-btn" onmouseover="dodgeButton(this)" onclick="dodgeButton(this)">Sama-sama batu?</button>
+                <button class="btn" onclick="goToSlide(4)">Kalau kamu candu! ✨</button>
             </div>
         </div>
 
-        <!-- Slide 4: Quiz 3 -->
+        <!-- SLIDE 4: KUIS 3 -->
         <div id="slide4" class="slide">
             <h1>Terakhir Janji! ✌️</h1>
-            <p>Kalau aku tiba-tiba botak?</p>
-            <div class="quiz-area">
-                <button class="btn btn-back" id="dodge3" onmouseover="dodge(this)" onclick="dodge(this)" style="position:absolute;">Pura-pura gak kenal</button>
-                <button class="btn" onclick="goToSlide(5)" style="position:absolute; right:0;">Ikut botak juga! 😂</button>
+            <p>Kalau aku tiba-tiba jadi botak, kamu bakal lakuin apa?</p>
+            <div class="btn-group" style="height: 120px; position: relative; display: flex; justify-content: center; align-items: center; width: 100%;">
+                <button class="btn btn-back dodge-btn" onmouseover="dodgeButton(this)" onclick="dodgeButton(this)">Pura-pura gak kenal</button>
+                <button class="btn" onclick="goToSlide(5)">Ikut botak juga dong! 😂</button>
             </div>
         </div>
 
-        <!-- Slide 5-8: Foto -->
+        <!-- SLIDE 5: Foto 1 -->
         <div id="slide5" class="slide">
-            <h1>Memori 1 ✨</h1>
-            <div class="photo-frame"><img src="foto1.jpg" alt="Foto 1"><p class="photo-caption">Memori 1</p></div>
-            <div class="btn-group"><button class="btn btn-back" onclick="goToSlide(4)">Kembali</button><button class="btn" onclick="goToSlide(6)">Lanjut</button></div>
+            <h1>Happy Birthday! 🎂</h1>
+            <div class="photo-frame">
+                <!-- GANTI LINK GAMBAR DI BAWAH INI DENGAN FOTO ASLI (contoh: foto1.jpg) -->
+                <img src="foto1.jpg" alt="Foto 1">
+                <p class="photo-caption">Memori 1 ✨</p>
+            </div>
+            <p>Selamat ulang tahun, Nabilla! Walau kita udah punya jalan masing-masing, aku tetep mau ngucapin di hari spesialmu ini.</p>
+            <div class="btn-group">
+                <button class="btn btn-back" onclick="goToSlide(4)">Kembali</button>
+                <button class="btn" onclick="goToSlide(6)">Lanjut 👉</button>
+            </div>
         </div>
 
+        <!-- SLIDE 6: Foto 2 -->
         <div id="slide6" class="slide">
             <h1>Cerita Kita 📖</h1>
-            <div class="photo-frame"><img src="foto2.jpg" alt="Foto 2"><p class="photo-caption">Memori 2</p></div>
-            <div class="btn-group"><button class="btn btn-back" onclick="goToSlide(5)">Kembali</button><button class="btn" onclick="goToSlide(7)">Lanjut</button></div>
+            <div class="photo-frame" style="transform: rotate(3deg);">
+                <img src="foto2.jpg" alt="Foto 2">
+                <p class="photo-caption">Memori 2 💫</p>
+            </div>
+            <p>Makasih ya udah pernah jadi bagian cerita yang indah di hidup aku. Banyak banget memori seru yang pernah kita lewatin bareng.</p>
+            <div class="btn-group">
+                <button class="btn btn-back" onclick="goToSlide(5)">Kembali</button>
+                <button class="btn" onclick="goToSlide(7)">Lanjut 👉</button>
+            </div>
         </div>
 
+        <!-- SLIDE 7: Foto 3 -->
         <div id="slide7" class="slide">
             <h1>Doaku Buatmu 🌟</h1>
-            <div class="photo-frame"><img src="foto3.jpg" alt="Foto 3"><p class="photo-caption">Memori 3</p></div>
-            <div class="btn-group"><button class="btn btn-back" onclick="goToSlide(6)">Kembali</button><button class="btn" onclick="goToSlide(8)">Lanjut</button></div>
+            <div class="photo-frame" style="transform: rotate(-2deg);">
+                <img src="foto3.jpg" alt="Foto 3">
+                <p class="photo-caption">Memori 3 🌸</p>
+            </div>
+            <p>Di umur yang baru ini, semoga kamu makin sukses, makin cantik, sehat selalu, dan selalu dikelilingi orang-orang baik yang sayang sama kamu.</p>
+            <div class="btn-group">
+                <button class="btn btn-back" onclick="goToSlide(6)">Kembali</button>
+                <button class="btn" onclick="goToSlide(8)">Lanjut 👉</button>
+            </div>
         </div>
 
+        <!-- SLIDE 8: Foto 4 -->
         <div id="slide8" class="slide">
             <h1>Maaf & Terima Kasih 🙏</h1>
-            <div class="photo-frame"><img src="foto4.jpg" alt="Foto 4"><p class="photo-caption">Memori 4</p></div>
-            <div class="btn-group"><button class="btn btn-back" onclick="goToSlide(7)">Kembali</button><button class="btn" onclick="goToSlide(9)">Buka Kado</button></div>
+            <div class="photo-frame" style="transform: rotate(2deg);">
+                <img src="foto4.jpg" alt="Foto 4">
+                <p class="photo-caption">Memori 4 💕</p>
+            </div>
+            <p>Maaf ya kalau dulu aku pernah buat salah atau bikin kamu sedih. Semoga sekarang kamu udah nemuin kebahagiaan yang kamu cari. You deserve the best!</p>
+            <div class="btn-group">
+                <button class="btn btn-back" onclick="goToSlide(7)">Kembali</button>
+                <button class="btn" onclick="goToSlide(9)">Buka Kado! 🎁</button>
+            </div>
         </div>
 
-        <!-- Slide 9: Game -->
+        <!-- SLIDE 9: MINI GAME -->
         <div id="slide9" class="slide">
-            <h1>Tangkap Kadonya! 🎁</h1>
-            <div class="game-area" id="gameArea"><div class="target-item" id="targetItem" onclick="catchItem()">🎁</div></div>
-            <div class="btn-group"><button class="btn" id="gameBtnNext" style="display:none" onclick="goToSlide(10)">Lihat Isi Kado</button></div>
+            <h1>Tangkap Kadonya! 🎮</h1>
+            <p>Kadonya lari-lari nih! Coba tangkap (klik) <strong>5 kali</strong> buat buka isinya!</p>
+            <p style="margin-bottom: 10px;">Ditangkap: <span id="score" style="color: #ff69b4; font-weight: bold; font-size: 22px;">0</span> / 5</p>
+            
+            <div class="game-area" id="gameArea">
+                <div id="winMessage" style="display: none; color: #ff69b4; margin-top: 90px; font-size: 24px; font-weight: bold; text-shadow: 0 0 10px #ff1493;">Berhasil Ditangkap! 🎉</div>
+                <div class="target-item" id="targetItem" onclick="catchItem()">🎁</div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-back" onclick="goToSlide(8)">Kembali</button>
+                <button class="btn" id="gameBtnNext" style="display: none;" onclick="goToSlide(10)">Lihat Isi Kado! ✨</button>
+            </div>
         </div>
 
-        <!-- Slide 10: Gallery 6 Foto -->
+        <!-- SLIDE 10: Penutup Utama -->
         <div id="slide10" class="slide">
-            <h1>Happy Birthday Nabilla! 🎉</h1>
-            <div class="photo-grid">
-                <img src="foto5.jpg"><img src="foto6.jpg"><img src="foto7.jpg">
-                <img src="foto8.jpg"><img src="foto9.jpg"><img src="foto10.jpg">
+            <h1 style="font-size: 40px; margin-top: 20px;">Sekali Lagi...</h1>
+            <h1 style="color: white; text-shadow: 0 0 20px #ff1493;">HAPPY BIRTHDAY<br>NABILLA! 🎉</h1>
+            <p style="margin-top: 30px;">Semoga harimu menyenangkan! Sukses terus buat kedepannya ya. Cheers to your new age! 🥂✨</p>
+            <div class="btn-group" style="margin-top: 40px;">
+                <button class="btn btn-back" onclick="goToSlide(9)">Kembali</button>
+                <button class="btn" onclick="goToSlide(11)">Ada Satu Lagi...</button>
             </div>
-            <div class="btn-group"><button class="btn" onclick="goToSlide(11)">Ada Satu Lagi...</button></div>
         </div>
 
-        <!-- Slide 11: Pesan Terakhir -->
+        <!-- SLIDE 11: PESAN TERAKHIR -->
         <div id="slide11" class="slide">
-            <h1>Untuk Nabilla 🤍</h1>
-            <div class="photo-frame" style="max-width:150px"><img src="fototerakhir.jpg"></div>
-            <div class="message-box">
-                <p>Mungkin ini jadi pesan terakhir dari aku buat kamu. Makasih ya, karena pernah hadir... (dst)</p>
+            <h1 style="font-size: 26px; margin-bottom: 15px;">Untuk Nabilla 🤍</h1>
+            
+            <!-- GANTI LINK INI DENGAN FOTO TERAKHIR -->
+            <div class="photo-frame" style="transform: rotate(0deg); max-width: 170px; margin: 0 auto 15px auto; padding: 8px 8px 15px 8px;">
+                <img src="fototerakhir.jpg" alt="Foto Terakhir" style="height: 150px;">
             </div>
-            <button class="btn" onclick="ledakanHati()">🎉 Kasih Magic!</button>
+
+            <div class="message-box">
+                <p>Mungkin ini jadi pesan terakhir dari aku buat kamu. Makasih ya, karena pernah hadir dan bikin aku ngerasain banyak hal yang sebelumnya belum pernah aku rasain. Makasih buat semua tawa, perhatian, cerita, dan kenangan yang pernah kita buat bareng. Meskipun akhirnya kita harus selesai, aku tetep bersyukur pernah kenal kamu sedalam ini.</p>
+                
+                <p>Aku minta maaf kalau selama kita bersama aku masih banyak kurangnya, masih sering bikin kamu kecewa, capek, atau sedih. Percaya deh, aku ga pernah ada niat buat nyakitin kamu. Aku cuma manusia yang kadang terlalu sayang sampai lupa cara yang benar buat mempertahankan.</p>
+                
+                <p>Sekarang mungkin jalan kita udah beda. Berat buat nerima semuanya, apalagi harus terbiasa tanpa kamu setelah selama ini kamu jadi bagian dari hari-hari aku. Tapi mau gimana lagi, ga semua yang saling sayang harus tetap bersama kan?</p>
+                
+                <p>Aku harap setelah ini hidup kamu jauh lebih bahagia. Semoga semua hal baik selalu dateng ke kamu, semoga kamu dipertemukan sama orang yang bisa lebih ngertiin dan jagain kamu daripada aku. Dan kalau suatu hari nanti kamu inget aku, aku harap yang kamu inget bukan sakitnya, tapi semua hal baik yang pernah kita lewatin bareng.</p>
+                
+                <p>Terakhir, tolong jaga diri baik-baik ya. Makasih udah pernah jadi rumah ternyaman buat aku. Aku pamit, sayang 🤍</p>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-back" onclick="goToSlide(10)">Kembali</button>
+                <button class="btn" onclick="ledakanHati()">🎉 Kasih Magic! 🎉</button>
+            </div>
         </div>
+
     </div>
 
     <script>
-        let initialized = false;
-        function toggleMusic() {
-            const m = document.getElementById('bgMusic');
-            if (!initialized) { m.play(); initialized=true; document.getElementById('music-emoji').innerText='🎵'; document.getElementById('music-album-art').classList.add('playing'); }
-            else { m.paused ? m.play() : m.pause(); document.getElementById('music-emoji').innerText = m.paused ? '🔇' : '🎵'; m.paused ? document.getElementById('music-album-art').classList.remove('playing') : document.getElementById('music-album-art').classList.add('playing'); }
-        }
-        function startMusicAndSlide(n) { toggleMusic(); goToSlide(n); }
-        function goToSlide(n) { document.querySelectorAll('.slide').forEach(s=>s.classList.remove('active')); document.getElementById('slide'+n).classList.add('active'); if(n==9) startGame(); else stopGame(); }
-        
-        function dodge(btn) { 
-            const c = btn.parentElement; 
-            btn.style.left = Math.random()*(c.clientWidth-btn.clientWidth)+'px'; 
-            btn.style.top = Math.random()*(c.clientHeight-btn.clientHeight)+'px'; 
-        }
-        
-        let score = 0;
-        function startGame() { score=0; document.getElementById('targetItem').style.display='block'; moveTarget(); }
-        function stopGame() { clearInterval(window.gameInt); }
-        function moveTarget() { const t = document.getElementById('targetItem'), a = document.getElementById('gameArea'); t.style.left = Math.random()*(a.clientWidth-50)+'px'; t.style.top = Math.random()*(a.clientHeight-50)+'px'; window.gameInt = setTimeout(moveTarget, 800); }
-        function catchItem() { score++; if(score>=5) { document.getElementById('targetItem').style.display='none'; document.getElementById('gameBtnNext').style.display='block'; } else moveTarget(); }
+        // --- LOGIKA MUSIK ---
+        let audioInitialized = false;
+        let isMuted = true;
+        const bgMusic = document.getElementById('bgMusic');
+        const musicEmoji = document.getElementById('music-emoji');
+        const musicAlbumArt = document.getElementById('music-album-art');
 
-        const canvas = document.getElementById('fireworksCanvas'), ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        function fire() { ctx.fillStyle='rgba(0,0,0,0.1)'; ctx.fillRect(0,0,canvas.width,canvas.height); requestAnimationFrame(fire); }
-        fire();
+        function playAudioFirstTime() {
+            if(!audioInitialized) {
+                bgMusic.volume = 0.6; // Atur volume
+                bgMusic.play().then(() => {
+                    audioInitialized = true;
+                    isMuted = false;
+                    musicEmoji.innerText = '🎵';
+                    musicAlbumArt.classList.add('playing'); // Putar foto album
+                }).catch(err => {
+                    console.log("Autoplay ditolak oleh browser", err);
+                });
+            }
+        }
+
+        function toggleMusic() {
+            if(!audioInitialized) {
+                playAudioFirstTime();
+                return;
+            }
+            
+            isMuted = !isMuted;
+            if(isMuted) {
+                bgMusic.pause();
+                musicEmoji.innerText = '🔇';
+                musicAlbumArt.classList.remove('playing'); 
+            } else {
+                bgMusic.play();
+                musicEmoji.innerText = '🎵';
+                musicAlbumArt.classList.add('playing'); 
+            }
+        }
+
+        // --- NAVIGASI SLIDE ---
+        function goToSlide(slideNumber) {
+            // Mainkan musik saat klik tombol pertama ("Boleh dong!") ke slide 2
+            if (slideNumber === 2 && !audioInitialized) {
+                playAudioFirstTime();
+            }
+
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            const nextSlide = document.getElementById('slide' + slideNumber);
+            nextSlide.classList.add('active');
+
+            // Reset posisi semua tombol kuis jika pindah slide
+            const dodgeBtns = document.querySelectorAll('.dodge-btn');
+            dodgeBtns.forEach(btn => {
+                btn.style.position = 'relative';
+                btn.style.left = '0';
+                btn.style.top = '0';
+            });
+
+            // Trigger game di slide 9
+            if (slideNumber === 9) {
+                startGame();
+            } else {
+                stopGame();
+            }
+        }
+
+        // --- LOGIKA KUIS (TOMBOL KABUR) ---
+        function dodgeButton(btn) {
+            const container = btn.parentElement;
+            
+            btn.style.position = 'absolute';
+            
+            const maxX = container.clientWidth - btn.clientWidth;
+            const maxY = container.clientHeight - btn.clientHeight;
+            
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+        }
+
+        // --- LOGIKA MINI GAME (TANGKAP KADO) ---
+        let score = 0;
+        let gameInterval;
+
+        function startGame() {
+            score = 0;
+            document.getElementById('score').innerText = score;
+            document.getElementById('gameBtnNext').style.display = 'none';
+            document.getElementById('winMessage').style.display = 'none';
+            
+            const target = document.getElementById('targetItem');
+            target.style.display = 'block';
+            target.innerHTML = '🎁'; 
+            
+            moveItem();
+            clearInterval(gameInterval);
+            gameInterval = setInterval(moveItem, 900);
+        }
+
+        function stopGame() {
+            if(gameInterval) clearInterval(gameInterval);
+        }
+
+        function moveItem() {
+            const target = document.getElementById('targetItem');
+            const gameArea = document.getElementById('gameArea');
+            
+            const maxX = gameArea.clientWidth - 50; 
+            const maxY = gameArea.clientHeight - 50;
+
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+
+            target.style.left = randomX + 'px';
+            target.style.top = randomY + 'px';
+        }
+
+        function catchItem() {
+            score++;
+            document.getElementById('score').innerText = score;
+            
+            const target = document.getElementById('targetItem');
+            
+            target.style.transform = 'scale(1.4) rotate(10deg)';
+            setTimeout(() => target.style.transform = 'scale(1) rotate(0deg)', 150);
+
+            if (score >= 5) {
+                stopGame();
+                target.innerHTML = '✨💌✨'; 
+                setTimeout(() => {
+                    target.style.display = 'none';
+                    document.getElementById('gameBtnNext').style.display = 'block';
+                    document.getElementById('winMessage').style.display = 'block';
+                }, 800);
+            } else {
+                moveItem(); 
+                clearInterval(gameInterval); 
+                gameInterval = setInterval(moveItem, 900 - (score * 120)); 
+            }
+        }
+
+        // --- EFEK LEDAKAN HATI FINAL ---
+        function ledakanHati() {
+            for (let i = 0; i < 40; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    const emojis = ['💖', '✨', '🌸', '💕', '🤍'];
+                    heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                    heart.style.position = 'fixed';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.top = '-50px';
+                    heart.style.fontSize = (Math.random() * 30 + 15) + 'px';
+                    heart.style.zIndex = '99999';
+                    heart.style.transition = 'transform 3s linear, top 3s linear, opacity 3s linear';
+                    
+                    document.body.appendChild(heart);
+
+                    setTimeout(() => {
+                        heart.style.top = '120vh';
+                        heart.style.transform = `rotate(${Math.random() * 360}deg)`;
+                        heart.style.opacity = '0';
+                    }, 50);
+
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 3000);
+                }, i * 40);
+            }
+        }
+
+        // --- KEMBANG API (FIREWORKS) NON-STOP ---
+        const canvas = document.getElementById('fireworksCanvas');
+        const ctx = canvas.getContext('2d');
+        let cw = window.innerWidth;
+        let ch = window.innerHeight;
+        canvas.width = cw;
+        canvas.height = ch;
+
+        window.addEventListener('resize', () => {
+            cw = window.innerWidth;
+            ch = window.innerHeight;
+            canvas.width = cw;
+            canvas.height = ch;
+        });
+
+        const fireworks = [];
+        const particles = [];
         
-        function ledakanHati() { for(let i=0; i<30; i++) { const h=document.createElement('div'); h.innerHTML='💖'; h.style.position='fixed'; h.style.left=Math.random()*100+'vw'; h.style.top='-50px'; h.style.transition='3s'; document.body.appendChild(h); setTimeout(()=>{h.style.top='110vh';}, 100); setTimeout(()=>h.remove(), 3000); } }
+        function random(min, max) { return Math.random() * (max - min) + min; }
+
+        function createParticles(x, y) {
+            let particleCount = 100;
+            while(particleCount--) {
+                particles.push({
+                    x: x,
+                    y: y,
+                    vx: random(-6, 6),
+                    vy: random(-6, 6),
+                    alpha: 1,
+                    hue: random(300, 350), 
+                    brightness: random(60, 100),
+                    decay: random(0.01, 0.02)
+                });
+            }
+        }
+
+        function updateFireworks() {
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+            ctx.fillRect(0, 0, cw, ch);
+            ctx.globalCompositeOperation = 'lighter';
+
+            if (Math.random() < 0.08) {
+                let startX = random(cw * 0.05, cw * 0.95);
+                fireworks.push({
+                    x: startX,
+                    y: ch,
+                    tx: startX + random(-80, 80),
+                    ty: random(ch * 0.1, ch * 0.6),
+                    speed: random(5, 8)
+                });
+            }
+
+            for (let i = fireworks.length - 1; i >= 0; i--) {
+                let f = fireworks[i];
+                ctx.beginPath();
+                ctx.arc(f.x, f.y, 2.5, 0, Math.PI * 2);
+                ctx.fillStyle = '#ff69b4';
+                ctx.fill();
+
+                f.y -= f.speed;
+                f.x += (f.tx - f.x) * 0.02;
+
+                if (f.y <= f.ty) {
+                    createParticles(f.x, f.y);
+                    fireworks.splice(i, 1);
+                }
+            }
+
+            for (let i = particles.length - 1; i >= 0; i--) {
+                let p = particles[i];
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, random(1, 3.5), 0, Math.PI * 2);
+                ctx.fillStyle = `hsla(${p.hue}, 100%, ${p.brightness}%, ${p.alpha})`;
+                ctx.fill();
+
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.05;
+                p.alpha -= p.decay;
+
+                if (p.alpha <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+
+            requestAnimationFrame(updateFireworks);
+        }
+        
+        updateFireworks();
     </script>
 </body>
 </html>
