@@ -24,6 +24,17 @@
             touch-action: manipulation; /* Mencegah zoom saat tap cepat di game */
         }
 
+        /* --- CANVAS KEMBANG API --- */
+        #fireworksCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* Di belakang konten utama */
+            pointer-events: none; /* Agar tidak mengganggu klik/tap */
+        }
+
         /* --- BACKGROUND ANIMASI NON-STOP --- */
         .bg-bubbles {
             position: fixed;
@@ -220,6 +231,9 @@
     </style>
 </head>
 <body>
+
+    <!-- Canvas Kembang Api -->
+    <canvas id="fireworksCanvas"></canvas>
 
     <!-- -->
     <!-- Animasi Latar Belakang -->
@@ -476,6 +490,108 @@
                 }, i * 40);
             }
         }
+
+        // --- KEMBANG API (FIREWORKS) NON-STOP ---
+        const canvas = document.getElementById('fireworksCanvas');
+        const ctx = canvas.getContext('2d');
+        let cw = window.innerWidth;
+        let ch = window.innerHeight;
+        canvas.width = cw;
+        canvas.height = ch;
+
+        // Sesuaikan ukuran jika layar diubah (rotasi HP / resize browser)
+        window.addEventListener('resize', () => {
+            cw = window.innerWidth;
+            ch = window.innerHeight;
+            canvas.width = cw;
+            canvas.height = ch;
+        });
+
+        const fireworks = [];
+        const particles = [];
+        
+        // Fungsi random angka
+        function random(min, max) { return Math.random() * (max - min) + min; }
+
+        // Fungsi membuat ledakan partikel kembang api
+        function createParticles(x, y) {
+            let particleCount = 60; // Jumlah percikan ledakan
+            while(particleCount--) {
+                particles.push({
+                    x: x,
+                    y: y,
+                    vx: random(-4, 4),
+                    vy: random(-4, 4),
+                    alpha: 1,
+                    hue: random(300, 350), // Tema gradasi Pink-Magenta
+                    brightness: random(50, 80),
+                    decay: random(0.015, 0.03) // Kecepatan menghilang
+                });
+            }
+        }
+
+        // Fungsi utama animasi kembang api
+        function updateFireworks() {
+            // Memberikan efek jejak (trail) pada kembang api yang meluncur
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+            ctx.fillRect(0, 0, cw, ch);
+            ctx.globalCompositeOperation = 'lighter';
+
+            // Munculkan kembang api baru secara acak (sekitar 5% kemungkinan per frame)
+            if (Math.random() < 0.05) {
+                let startX = random(cw * 0.1, cw * 0.9); // Posisi awal dari bawah
+                fireworks.push({
+                    x: startX,
+                    y: ch,
+                    tx: startX + random(-50, 50), // Target meledak (kiri/kanan sedikit)
+                    ty: random(ch * 0.1, ch * 0.5), // Tinggi ledakan di langit-langit
+                    speed: random(4, 7) // Kecepatan meluncur
+                });
+            }
+
+            // Update pergerakan roket kembang api
+            for (let i = fireworks.length - 1; i >= 0; i--) {
+                let f = fireworks[i];
+                ctx.beginPath();
+                ctx.arc(f.x, f.y, 2, 0, Math.PI * 2);
+                ctx.fillStyle = '#ff69b4'; // Warna HotPink saat meluncur
+                ctx.fill();
+
+                f.y -= f.speed; // Meluncur ke atas
+                f.x += (f.tx - f.x) * 0.02; // Melengkung sedikit menuju target
+
+                // Jika sudah mencapai target tinggi, meledak
+                if (f.y <= f.ty) {
+                    createParticles(f.x, f.y);
+                    fireworks.splice(i, 1); // Hapus roket
+                }
+            }
+
+            // Update pergerakan partikel (hasil ledakan)
+            for (let i = particles.length - 1; i >= 0; i--) {
+                let p = particles[i];
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, random(1, 3), 0, Math.PI * 2);
+                ctx.fillStyle = `hsla(${p.hue}, 100%, ${p.brightness}%, ${p.alpha})`;
+                ctx.fill();
+
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.08; // Efek gravitasi jatuh ke bawah
+                p.alpha -= p.decay; // Menghilang perlahan
+
+                // Hapus dari memori kalau sudah tidak terlihat
+                if (p.alpha <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+
+            requestAnimationFrame(updateFireworks); // Ulangi terus menerus
+        }
+        
+        // Memulai animasi kembang api
+        updateFireworks();
     </script>
 </body>
 </html>
