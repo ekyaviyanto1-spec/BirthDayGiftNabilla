@@ -260,7 +260,6 @@
             filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.8));
         }
 
-        /* --- KOTAK PESAN KHUSUS --- */
         .message-box {
             max-height: 220px;
             overflow-y: auto;
@@ -281,7 +280,6 @@
         .message-box p:last-child {
             margin-bottom: 0;
         }
-        /* Custom Scrollbar untuk Kotak Pesan */
         .message-box::-webkit-scrollbar {
             width: 8px;
         }
@@ -297,31 +295,66 @@
             background: #ff1493; 
         }
 
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+            width: 100%;
+        }
+        .photo-grid img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid #ff1493;
+            box-shadow: 0 0 10px rgba(255, 20, 147, 0.3);
+            transition: all 0.3s ease;
+            /* Efek animasi goyang/melayang */
+            animation: floating 3s ease-in-out infinite;
+            cursor: pointer;
+        }
+        /* Membuat goyangan bervariasi antar foto */
+        .photo-grid img:nth-child(even) {
+            animation-duration: 3.5s;
+            animation-delay: 0.5s;
+        }
+        .photo-grid img:nth-child(3n) {
+            animation-duration: 4s;
+            animation-delay: 1s;
+        }
+        .photo-grid img:hover {
+            transform: scale(1.15) rotate(-3deg) !important;
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.8);
+            z-index: 10;
+            position: relative;
+            /* Berhenti goyang saat disentuh/hover */
+            animation-play-state: paused;
+        }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(3deg); }
+        }
+
     </style>
 </head>
 <body>
 
-    <!-- Audio Element untuk Lagu -->
     <audio id="bgMusic" loop preload="auto">
         <source src="sampai-jadi-debu.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Widget Musik Pojok Kanan Atas -->
     <div id="music-widget" onclick="toggleMusic()">
-        <!-- Ganti src di bawah dengan link foto Banda Neira atau foto kalian -->
         <img id="music-album-art" class="music-photo" src="https://placehold.co/100x100/ff69b4/ffffff?text=Lagu" alt="Album Art">
         <span id="music-emoji" class="music-emoji">🔇</span>
     </div>
 
-    <!-- Canvas Kembang Api -->
     <canvas id="fireworksCanvas"></canvas>
 
-    <!-- Animasi Latar Belakang -->
     <ul class="bg-bubbles">
         <li>💖</li><li></li><li>✨</li><li></li><li>💕</li><li></li><li>🎉</li><li></li><li>🌸</li><li></li>
     </ul>
 
-    <!-- KOTAK UTAMA -->
     <div class="card" id="mainCard">
         
         <!-- SLIDE 1: Pembukaan -->
@@ -367,7 +400,6 @@
         <div id="slide5" class="slide">
             <h1>Happy Birthday! 🎂</h1>
             <div class="photo-frame">
-                <!-- GANTI LINK GAMBAR DI BAWAH INI DENGAN FOTO ASLI (contoh: foto1.jpg) -->
                 <img src="foto1.jpg" alt="Foto 1">
                 <p class="photo-caption">Memori 1 ✨</p>
             </div>
@@ -437,12 +469,24 @@
             </div>
         </div>
 
-        <!-- SLIDE 10: Penutup Utama -->
+        <!-- SLIDE 10: Penutup Utama (Dengan Grid Foto) -->
         <div id="slide10" class="slide">
-            <h1 style="font-size: 40px; margin-top: 20px;">Sekali Lagi...</h1>
-            <h1 style="color: white; text-shadow: 0 0 20px #ff1493;">HAPPY BIRTHDAY<br>NABILLA! 🎉</h1>
-            <p style="margin-top: 30px;">Semoga harimu menyenangkan! Sukses terus buat kedepannya ya. Cheers to your new age! 🥂✨</p>
-            <div class="btn-group" style="margin-top: 40px;">
+            <h1 style="font-size: 28px; margin-top: 5px; margin-bottom: 5px;">Sekali Lagi...</h1>
+            <h1 style="color: white; text-shadow: 0 0 20px #ff1493; font-size: 24px; margin-bottom: 5px;">HAPPY BIRTHDAY NABILLA! 🎉</h1>
+            
+            <!-- Grid 6 Foto yang Bergoyang -->
+            <div class="photo-grid">
+                <img src="foto5.jpg" alt="Foto 5">
+                <img src="foto6.jpg" alt="Foto 6">
+                <img src="foto7.jpg" alt="Foto 7">
+                <img src="foto8.jpg" alt="Foto 8">
+                <img src="foto9.jpg" alt="Foto 9">
+                <img src="foto10.jpg" alt="Foto 10">
+            </div>
+
+            <p style="font-size: 14px; margin-bottom: 15px;">Semoga harimu menyenangkan! Sukses terus buat kedepannya ya. Cheers to your new age! 🥂✨</p>
+            
+            <div class="btn-group" style="margin-top: 10px;">
                 <button class="btn btn-back" onclick="goToSlide(9)">Kembali</button>
                 <button class="btn" onclick="goToSlide(11)">Ada Satu Lagi...</button>
             </div>
@@ -452,7 +496,6 @@
         <div id="slide11" class="slide">
             <h1 style="font-size: 26px; margin-bottom: 15px;">Untuk Nabilla 🤍</h1>
             
-            <!-- GANTI LINK INI DENGAN FOTO TERAKHIR -->
             <div class="photo-frame" style="transform: rotate(0deg); max-width: 170px; margin: 0 auto 15px auto; padding: 8px 8px 15px 8px;">
                 <img src="fototerakhir.jpg" alt="Foto Terakhir" style="height: 150px;">
             </div>
