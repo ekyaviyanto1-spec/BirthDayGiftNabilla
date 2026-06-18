@@ -259,6 +259,44 @@
             -webkit-tap-highlight-color: transparent;
             filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.8));
         }
+
+        /* --- KOTAK PESAN KHUSUS --- */
+        .message-box {
+            max-height: 220px;
+            overflow-y: auto;
+            text-align: left;
+            font-size: 15px;
+            line-height: 1.6;
+            background: rgba(0,0,0,0.4);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,105,180,0.5);
+            margin-bottom: 15px;
+            color: #fff0f5;
+        }
+        .message-box p {
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+        .message-box p:last-child {
+            margin-bottom: 0;
+        }
+        /* Custom Scrollbar untuk Kotak Pesan */
+        .message-box::-webkit-scrollbar {
+            width: 8px;
+        }
+        .message-box::-webkit-scrollbar-track {
+            background: rgba(255, 105, 180, 0.1); 
+            border-radius: 10px;
+        }
+        .message-box::-webkit-scrollbar-thumb {
+            background: #ff69b4; 
+            border-radius: 10px;
+        }
+        .message-box::-webkit-scrollbar-thumb:hover {
+            background: #ff1493; 
+        }
+
     </style>
 </head>
 <body>
@@ -399,13 +437,40 @@
             </div>
         </div>
 
-        <!-- SLIDE 10: Penutup -->
+        <!-- SLIDE 10: Penutup Utama -->
         <div id="slide10" class="slide">
             <h1 style="font-size: 40px; margin-top: 20px;">Sekali Lagi...</h1>
             <h1 style="color: white; text-shadow: 0 0 20px #ff1493;">HAPPY BIRTHDAY<br>NABILLA! 🎉</h1>
             <p style="margin-top: 30px;">Semoga harimu menyenangkan! Sukses terus buat kedepannya ya. Cheers to your new age! 🥂✨</p>
             <div class="btn-group" style="margin-top: 40px;">
                 <button class="btn btn-back" onclick="goToSlide(9)">Kembali</button>
+                <button class="btn" onclick="goToSlide(11)">Ada Satu Lagi...</button>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: PESAN TERAKHIR -->
+        <div id="slide11" class="slide">
+            <h1 style="font-size: 26px; margin-bottom: 15px;">Untuk Nabilla 🤍</h1>
+            
+            <!-- GANTI LINK INI DENGAN FOTO TERAKHIR -->
+            <div class="photo-frame" style="transform: rotate(0deg); max-width: 170px; margin: 0 auto 15px auto; padding: 8px 8px 15px 8px;">
+                <img src="https://placehold.co/300x300/ff69b4/121212?text=Foto+Terakhir" alt="Foto Terakhir" style="height: 150px;">
+            </div>
+
+            <div class="message-box">
+                <p>Mungkin ini jadi pesan terakhir dari aku buat kamu. Makasih ya, karena pernah hadir dan bikin aku ngerasain banyak hal yang sebelumnya belum pernah aku rasain. Makasih buat semua tawa, perhatian, cerita, dan kenangan yang pernah kita buat bareng. Meskipun akhirnya kita harus selesai, aku tetep bersyukur pernah kenal kamu sedalam ini.</p>
+                
+                <p>Aku minta maaf kalau selama kita bersama aku masih banyak kurangnya, masih sering bikin kamu kecewa, capek, atau sedih. Percaya deh, aku ga pernah ada niat buat nyakitin kamu. Aku cuma manusia yang kadang terlalu sayang sampai lupa cara yang benar buat mempertahankan.</p>
+                
+                <p>Sekarang mungkin jalan kita udah beda. Berat buat nerima semuanya, apalagi harus terbiasa tanpa kamu setelah selama ini kamu jadi bagian dari hari-hari aku. Tapi mau gimana lagi, ga semua yang saling sayang harus tetap bersama kan?</p>
+                
+                <p>Aku harap setelah ini hidup kamu jauh lebih bahagia. Semoga semua hal baik selalu dateng ke kamu, semoga kamu dipertemukan sama orang yang bisa lebih ngertiin dan jagain kamu daripada aku. Dan kalau suatu hari nanti kamu inget aku, aku harap yang kamu inget bukan sakitnya, tapi semua hal baik yang pernah kita lewatin bareng.</p>
+                
+                <p>Terakhir, tolong jaga diri baik-baik ya. Makasih udah pernah jadi rumah ternyaman buat aku. Aku pamit, sayang 🤍</p>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-back" onclick="goToSlide(10)">Kembali</button>
                 <button class="btn" onclick="ledakanHati()">🎉 Kasih Magic! 🎉</button>
             </div>
         </div>
@@ -413,7 +478,7 @@
     </div>
 
     <script>
-        // --- LOGIKA MUSIK BANDA NEIRA ---
+        // --- LOGIKA MUSIK ---
         let audioInitialized = false;
         let isMuted = true;
         const bgMusic = document.getElementById('bgMusic');
@@ -444,11 +509,11 @@
             if(isMuted) {
                 bgMusic.pause();
                 musicEmoji.innerText = '🔇';
-                musicAlbumArt.classList.remove('playing'); // Hentikan foto album
+                musicAlbumArt.classList.remove('playing'); 
             } else {
                 bgMusic.play();
                 musicEmoji.innerText = '🎵';
-                musicAlbumArt.classList.add('playing'); // Putar foto album
+                musicAlbumArt.classList.add('playing'); 
             }
         }
 
@@ -565,7 +630,7 @@
             for (let i = 0; i < 40; i++) {
                 setTimeout(() => {
                     const heart = document.createElement('div');
-                    const emojis = ['💖', '✨', '🌸', '💕'];
+                    const emojis = ['💖', '✨', '🌸', '💕', '🤍'];
                     heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
                     heart.style.position = 'fixed';
                     heart.style.left = Math.random() * 100 + 'vw';
