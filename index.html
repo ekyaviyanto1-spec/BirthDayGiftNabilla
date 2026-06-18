@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Nabilla! 💖</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
-    <!-- Tone.js untuk memutar instrumen musik lewat kode -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     
+    <style>
+        /* */
     <style>
         * {
             margin: 0;
@@ -251,6 +251,9 @@
 </head>
 <body>
 
+    <!-- Audio Element untuk Lagu -->
+    <audio id="bgMusic" src="sampai-jadi-debu.mp3" loop preload="auto"></audio>
+
     <!-- Tombol Audio -->
     <button id="musicToggle" onclick="toggleMusic()">🔊</button>
 
@@ -273,194 +276,43 @@
             </div>
         </div>
 
-        <!-- SLIDE 2: KUIS 1 -->
-        <div id="slide2" class="slide">
-            <h1>Tunggu Dulu! 🛑</h1>
-            <p>Sebelum lanjut, aku mau tes memori kamu nih. Hari ini hari apa hayo?</p>
-            <div class="btn-group" style="height: 120px; position: relative; display: flex; justify-content: center; align-items: center; width: 100%;">
-                <button class="btn btn-back dodge-btn" onmouseover="dodgeButton(this)" onclick="dodgeButton(this)">Hari Biasa</button>
-                <button class="btn" onclick="goToSlide(3)">Hari Ulang Tahunku! 🎂</button>
-            </div>
-        </div>
-
-        <!-- SLIDE 3: KUIS 2 -->
-        <div id="slide3" class="slide">
-            <h1>Satu Lagi! 🤪</h1>
-            <p>Tahu nggak bedanya kamu sama Borobudur?</p>
-            <div class="btn-group" style="height: 140px; position: relative; display: flex; justify-content: center; align-items: center; width: 100%;">
-                <button class="btn btn-back dodge-btn" onmouseover="dodgeButton(this)" onclick="dodgeButton(this)">Sama-sama batu?</button>
-                <button class="btn" onclick="goToSlide(4)">Kalau Borobudur candi,<br>kalau kamu candu! 🤭</button>
-            </div>
-        </div>
-
-        <!-- SLIDE 4: KUIS 3 -->
-        <div id="slide4" class="slide">
-            <h1>Terakhir Janji! ✌️</h1>
-            <p>Kalau aku tiba-tiba jadi botak, kamu bakal lakuin apa?</p>
-            <div class="btn-group" style="height: 140px; position: relative; display: flex; justify-content: center; align-items: center; width: 100%;">
-                <button class="btn btn-back dodge-btn" onmouseover="dodgeButton(this)" onclick="dodgeButton(this)">Pura-pura nggak kenal</button>
-                <button class="btn" onclick="goToSlide(5)">Ikut botak juga dong! 😂</button>
-            </div>
-        </div>
-
-        <!-- SLIDE 5: Foto 1 -->
-        <div id="slide5" class="slide">
-            <h1>Happy Birthday! 🎂</h1>
-            <div class="photo-frame">
-                <img src="https://placehold.co/300x300/ff69b4/ffffff?text=Foto+Nabilla+1" alt="Foto 1">
-                <p class="photo-caption">Memori 1 ✨</p>
-            </div>
-            <p>Selamat ulang tahun, Nabilla! Walau kita udah punya jalan masing-masing, aku tetep mau ngucapin di hari spesialmu ini.</p>
-            <div class="btn-group">
-                <button class="btn btn-back" onclick="goToSlide(4)">Kembali</button>
-                <button class="btn" onclick="goToSlide(6)">Lanjut 👉</button>
-            </div>
-        </div>
-
-        <!-- SLIDE 6: Foto 2 -->
-        <div id="slide6" class="slide">
-            <h1>Cerita Kita 📖</h1>
-            <div class="photo-frame" style="transform: rotate(3deg);">
-                <img src="https://placehold.co/300x300/ff1493/ffffff?text=Foto+Nabilla+2" alt="Foto 2">
-                <p class="photo-caption">Memori 2 💫</p>
-            </div>
-            <p>Makasih ya udah pernah jadi bagian cerita yang indah di hidup aku. Banyak banget memori seru yang pernah kita lewatin bareng.</p>
-            <div class="btn-group">
-                <button class="btn btn-back" onclick="goToSlide(5)">Kembali</button>
-                <button class="btn" onclick="goToSlide(7)">Lanjut 👉</button>
-            </div>
-        </div>
-
-        <!-- SLIDE 7: Foto 3 -->
-        <div id="slide7" class="slide">
-            <h1>Doaku Buatmu 🌟</h1>
-            <div class="photo-frame" style="transform: rotate(-2deg);">
-                <img src="https://placehold.co/300x300/ff69b4/121212?text=Foto+Nabilla+3" alt="Foto 3">
-                <p class="photo-caption">Memori 3 🌸</p>
-            </div>
-            <p>Di umur yang baru ini, semoga kamu makin cantik, sehat selalu, dan dikelilingi orang-orang baik yang sayang sama kamu.</p>
-            <div class="btn-group">
-                <button class="btn btn-back" onclick="goToSlide(6)">Kembali</button>
-                <button class="btn" onclick="goToSlide(8)">Lanjut 👉</button>
-            </div>
-        </div>
-
-        <!-- SLIDE 8: Foto 4 (Pesan Lebih Dalam) -->
-        <div id="slide8" class="slide">
-            <h1>Harapan & Maaf 🙏</h1>
-            <div class="photo-frame" style="transform: rotate(2deg);">
-                <img src="https://placehold.co/300x300/ff1493/121212?text=Foto+Nabilla+4" alt="Foto 4">
-                <p class="photo-caption">Memori 4 💕</p>
-            </div>
-            <p>Dulu kita pernah punya mimpi & tujuan yang sama. Meski jalannya sekarang berbeda, aku selalu berharap kamu menemukan kehidupan yang jauh lebih baik seperti yang kita obrolin dulu. You deserve the best!</p>
-            <div class="btn-group">
-                <button class="btn btn-back" onclick="goToSlide(7)">Kembali</button>
-                <button class="btn" onclick="goToSlide(9)">Buka Kado! 🎁</button>
-            </div>
-        </div>
-
-        <!-- SLIDE 9: MINI GAME -->
-        <div id="slide9" class="slide">
-            <h1>Tangkap Kadonya! 🎮</h1>
-            <p>Kadonya lari-lari nih! Coba tangkap (klik) <strong>5 kali</strong> buat buka isinya!</p>
-            <p style="margin-bottom: 10px;">Ditangkap: <span id="score" style="color: #ff69b4; font-weight: bold; font-size: 22px;">0</span> / 5</p>
-            
-            <div class="game-area" id="gameArea">
-                <div id="winMessage" style="display: none; color: #ff69b4; margin-top: 90px; font-size: 24px; font-weight: bold; text-shadow: 0 0 10px #ff1493;">Berhasil Ditangkap! 🎉</div>
-                <div class="target-item" id="targetItem" onclick="catchItem()">🎁</div>
-            </div>
-
-            <div class="btn-group">
-                <button class="btn btn-back" onclick="goToSlide(8)">Kembali</button>
-                <button class="btn" id="gameBtnNext" style="display: none;" onclick="goToSlide(10)">Lihat Isi Kado! ✨</button>
-            </div>
-        </div>
-
-        <!-- SLIDE 10: Penutup -->
-        <div id="slide10" class="slide">
-            <h1 style="font-size: 40px; margin-top: 20px;">Sekali Lagi...</h1>
-            <h1 style="color: white; text-shadow: 0 0 20px #ff1493;">HAPPY BIRTHDAY<br>NABILLA! 🎉</h1>
-            <p style="margin-top: 30px;">Semoga harimu menyenangkan! Sukses terus buat kedepannya ya. Berjuang terus buat kehidupan yang lebih baik! 🥂✨</p>
-            <div class="btn-group" style="margin-top: 40px;">
-                <button class="btn btn-back" onclick="goToSlide(9)">Kembali</button>
-                <button class="btn" onclick="ledakanHati()">🎉 Kasih Magic! 🎉</button>
-            </div>
-        </div>
-
-    </div>
-
+    <!-- -->
     <script>
-        // --- LOGIKA MUSIK AMBIENT NOSTALGIA ---
+        // --- LOGIKA MUSIK BANDA NEIRA ---
         let audioInitialized = false;
         let isMuted = false;
+        const bgMusic = document.getElementById('bgMusic');
 
         async function initAudio() {
             if(audioInitialized) return;
             
-            // Memulai context audio (wajib di browser modern setelah interaksi klik)
-            await Tone.start();
-            
-            // Membuat efek Reverb agar suara terdengar megah, menenangkan dan luas (nostalgia)
-            const reverb = new Tone.Reverb({ decay: 6, preDelay: 0.1 }).toDestination();
-            
-            // Synthesizer untuk melodi Pad (Latar belakang yang lembut)
-            const padSynth = new Tone.PolySynth(Tone.Synth, {
-                oscillator: { type: "triangle" },
-                envelope: { attack: 2, decay: 2, sustain: 0.6, release: 5 }
-            }).connect(reverb);
-            padSynth.volume.value = -12;
-
-            // Synthesizer untuk denting Arpeggio (Harapan)
-            const bellSynth = new Tone.Synth({
-                oscillator: { type: "sine" },
-                envelope: { attack: 0.05, decay: 0.5, sustain: 0.1, release: 2 }
-            }).connect(reverb);
-            bellSynth.volume.value = -16;
-
-            // Progresi akor: Cmaj9 -> G6 -> Fmaj7 (Mengingatkan lagu-lagu sedih namun berharap)
-            const chords = [
-                ['C3', 'E3', 'G3', 'B3'], 
-                ['G2', 'B2', 'D3', 'E3'], 
-                ['F2', 'A2', 'C3', 'E3'], 
-                ['F2', 'A2', 'C3', 'E3']  
-            ];
-            
-            // Melodi dentingan yang berulang
-            const bellNotes = ['C5', 'B4', 'G4', 'E4', 'D4', 'E4', 'G4', 'B4'];
-
-            let step = 0;
-            let bellStep = 0;
-
-            // Loop untuk pad/chord (Berjalan setiap 1 birama)
-            Tone.Transport.scheduleRepeat((time) => {
-                let chord = chords[step % chords.length];
-                padSynth.triggerAttackRelease(chord, "1m", time);
-                step++;
-            }, "1m");
-
-            // Loop untuk denting (Berjalan setiap 1/8 birama)
-            Tone.Transport.scheduleRepeat((time) => {
-                let note = bellNotes[bellStep % bellNotes.length];
-                bellSynth.triggerAttackRelease(note, "8n", time);
-                bellStep++;
-            }, "8n");
-
-            // Mengatur tempo menjadi lambat dan santai
-            Tone.Transport.bpm.value = 75;
-            Tone.Transport.start();
-            
-            audioInitialized = true;
-            
-            // Munculkan tombol mute di pojok
-            document.getElementById('musicToggle').style.display = 'flex';
+            try {
+                // Memutar musik bawaan (MP3)
+                bgMusic.volume = 0.6; // Atur volume (0.0 sampai 1.0)
+                await bgMusic.play();
+                audioInitialized = true;
+                
+                // Munculkan tombol mute di pojok
+                document.getElementById('musicToggle').style.display = 'flex';
+            } catch (err) {
+                console.log("Autoplay dicegah oleh browser. Pengguna harus menekan tombol musik.", err);
+            }
         }
 
         // Fungsi untuk menghidupkan/mematikan suara
         function toggleMusic() {
-            if(!audioInitialized) return;
+            if(!audioInitialized) {
+                initAudio();
+                return;
+            }
             isMuted = !isMuted;
-            Tone.Destination.mute = isMuted;
-            document.getElementById('musicToggle').innerText = isMuted ? '🔇' : '🔊';
+            if(isMuted) {
+                bgMusic.pause();
+                document.getElementById('musicToggle').innerText = '🔇';
+            } else {
+                bgMusic.play();
+                document.getElementById('musicToggle').innerText = '🔊';
+            }
         }
 
         // --- NAVIGASI SLIDE ---
