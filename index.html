@@ -14,53 +14,63 @@
         }
         body {
             font-family: 'Fredoka', sans-serif;
-            background-color: #121212; /* Warna hitam gelap */
-            color: #ffe4e1; /* Warna teks pink sangat muda */
+            /* Memasang gambar latar belakang yang meriah */
+            background-image: url('bg-birthday.png'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* Latar belakang tetap saat di-scroll */
+            background-color: #121212; /* Warna cadangan jika gambar gagal dimuat */
+            color: #ffe4e1;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden; /* Mencegah layar bisa di-scroll saat ada efek hujan hati */
+            overflow: hidden;
         }
         .container {
-            background-color: #24151c; /* Hitam dengan sedikit hint pink */
+            /* Sedikit penyesuaian agar kotak teks lebih serasi dengan latar belakang meriah */
+            background-color: rgba(36, 21, 28, 0.85); /* Dibuat sedikit transparan */
             padding: 40px;
             border-radius: 20px;
-            border: 2px solid #ff1493; /* Border pink terang */
-            box-shadow: 0 0 20px rgba(255, 20, 147, 0.4); /* Efek glow pink */
+            border: 2px solid #ff1493;
+            box-shadow: 0 0 25px rgba(255, 20, 147, 0.6); /* Efek glow lebih kuat */
             text-align: center;
-            max-width: 400px;
+            max-width: 450px; /* Sedikit lebih lebar */
             width: 90%;
             z-index: 10;
             position: relative;
+            backdrop-filter: blur(5px); /* Efek blur di belakang kotak teks */
         }
         h1 {
-            color: #ff69b4; /* Pink cerah */
-            font-size: 28px;
+            color: #ff69b4;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.7); /* Efek glow pada teks */
+            font-size: 30px;
             margin-bottom: 15px;
         }
         p {
-            font-size: 16px;
+            font-size: 17px;
             line-height: 1.6;
             margin-bottom: 25px;
+            color: #fff0f5; /* Warna teks sedikit lebih terang */
         }
         .btn {
             background-color: #ff1493;
             color: white;
             border: none;
-            padding: 12px 25px;
+            padding: 12px 30px;
             border-radius: 30px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 17px;
             font-family: 'Fredoka', sans-serif;
             font-weight: 600;
             transition: all 0.3s ease;
             margin: 5px;
-            box-shadow: 0 4px 10px rgba(255, 20, 147, 0.3);
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.4);
         }
         .btn:hover {
             background-color: #c71585;
-            transform: scale(1.05); /* Membesar sedikit saat disentuh */
+            transform: scale(1.08) translateY(-2px);
         }
         .btn-outline {
             background-color: transparent;
@@ -72,7 +82,6 @@
             color: white;
         }
         
-        /* Menyembunyikan step 2 dan 3 di awal */
         #step2, #step3 {
             display: none;
         }
@@ -85,6 +94,7 @@
             color: #ff69b4;
             animation: fall linear forwards;
             z-index: 1;
+            text-shadow: 0 0 5px rgba(255, 105, 180, 0.5);
         }
         @keyframes fall {
             to {
@@ -99,26 +109,26 @@
         <!-- TAHAP 1 -->
         <div id="step1">
             <h1>Hai... 👀</h1>
-            <p>Aku ada sesuatu nih buat kamu. Boleh dilihat nggak?</p>
-            <button class="btn" onclick="nextStep(2)">Boleh dong!</button>
+            <p>Ada kejutan kecil nih buat kamu di hari spesial ini. Penasaran gak? Boleh dibuka kan?</p>
+            <button class="btn" onclick="nextStep(2)">Boleh banget! 🎉</button>
             <button class="btn btn-outline" onclick="kabur(this)">Nggak ah</button>
         </div>
 
         <!-- TAHAP 2 -->
         <div id="step2">
             <h1>Coba Tebak! 🤔</h1>
-            <p>Hari ini hari apa hayo?</p>
-            <button class="btn btn-outline" onclick="alert('Salah woy! Coba lagi 😂')">Hari Libur?</button>
-            <button class="btn" onclick="nextStep(3)">Hari Ulang Tahunku!</button>
+            <p>Hayo ingat gak, hari ini tuh hari apa?</p>
+            <button class="btn btn-outline" onclick="alert('Masa lupa sih? Coba tebak lagi! 😂✨')">Hari Senin biasa?</button>
+            <button class="btn" onclick="nextStep(3)">Hari Ulang Tahunku! 🎂</button>
         </div>
 
         <!-- TAHAP 3 (UCAPAN UTAMA) -->
         <div id="step3">
-            <h1>Yey Bener! 🎉</h1>
+            <h1>Tepat Sekali! 🎉</h1>
             <p><strong>Selamat Ulang Tahun! 🎂✨</strong></p>
-            <p>Walaupun kita udah jalan masing-masing, tapi gapapa dong aku ngucapin? Semoga di umur yang baru ini kamu makin sukses, makin bahagia, dan semua yang kamu pengen bisa kecapai.</p>
-            <p style="font-size: 14px; font-style: italic; color: #ffb6c1;">Have a wonderful birthday! Jangan lupa traktirannya (canda hehe) ✌️</p>
-            <button class="btn" onclick="createHearts()">Klik Ini Buat Magic ✨</button>
+            <p>Meskipun sekarang jalan kita udah beda, aku tetap ingin kirim doa terbaik buat kamu. Semoga di usia yang baru ini kamu makin bahagia, sehat, sukses, dan semua impianmu bisa tercapai. You deserve the best!</p>
+            <p style="font-size: 15px; font-style: italic; color: #ffb6c1;">Have an amazing celebration! 🥂 (Klik tombol di bawah buat sedikit 'keajaiban' lagi)</p>
+            <button class="btn" onclick="createHearts()">Kirim Hati Lagi 💖</button>
         </div>
     </div>
 
@@ -131,39 +141,35 @@
             
             document.getElementById('step' + stepNumber).style.display = 'block';
 
-            // Jika masuk ke step 3, otomatis munculkan sedikit efek
+            // Jika masuk ke step 3, otomatis munculkan efek hujan hati
             if(stepNumber === 3) {
-                setTimeout(createHearts, 500);
+                setTimeout(createHearts, 300);
             }
         }
 
-        // Fungsi tombol "Nggak ah" yang kabur saat diklik
+        // Fungsi tombol "Nggak ah" yang lucu
         function kabur(btn) {
-            alert('Yee nggak bisa nolak! Harus pencet "Boleh dong!" 😜');
+            alert('Aduh, pencet tombol sebelahnya aja yuk! Gak bisa nolak lho 😉🎉');
         }
 
         // Fungsi membuat efek hujan love / hati
         function createHearts() {
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 40; i++) { /* Jumlah hati ditambah sedikit */
                 setTimeout(() => {
                     const heart = document.createElement('div');
                     heart.classList.add('heart');
                     heart.innerHTML = '💖';
                     
-                    // Posisi acak dari kiri ke kanan
                     heart.style.left = Math.random() * 100 + 'vw';
-                    // Ukuran acak
-                    heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-                    // Durasi jatuh acak agar terlihat natural
-                    heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    heart.style.fontSize = (Math.random() * 25 + 12) + 'px'; /* Ukuran variatif */
+                    heart.style.animationDuration = (Math.random() * 3 + 2.5) + 's';
                     
                     document.body.appendChild(heart);
 
-                    // Hapus hati setelah selesai jatuh agar website tidak berat
                     setTimeout(() => {
                         heart.remove();
-                    }, 5000);
-                }, i * 100);
+                    }, 5500);
+                }, i * 80);
             }
         }
     </script>
